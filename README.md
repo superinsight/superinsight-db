@@ -20,7 +20,7 @@ For guidance on how to use Superinsight, see our [User Documentation](https://do
 
 The best way to get started with Superinsight is to build and run our docker image
 ```
-docker run --name superinsight-db -p 5432:5432 -e SUPERINSIGHT_USER=admin -e SUPERINSIGHT_PASSWORD=password superinsight/superinsight-db-standalone:latest
+docker run --name superinsight-db-standalone -p 5432:5432 -e ENV_IMAGE_TO_LABEL=True -e SUPERINSIGHT_USER=admin2 -e SUPERINSIGHT_PASSWORD=password2 superinsight/superinsight-db-standalone:latest
 ```
 
 ## Need Help?
