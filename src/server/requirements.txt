@@ -1,0 +1,9 @@
+PyYAML>=3.13
+psycopg2-binary==2.9.3
+sql-metadata==2.5.0
+cachetools==5.2.0
+requests==2.28.1
+fastapi==0.79.0
+uvicorn==0.18.2
+protobuf==3.20.1
+kafka-python==2.0.2

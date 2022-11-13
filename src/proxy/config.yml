@@ -1,0 +1,24 @@
+plugins:
+  - postgres
+
+settings:
+  log-level: debug
+  intercept-log: /tmp/postgres-proxy-intercept.log
+  general-log: /tmp/postgres-proxy-general.log
+
+instances:
+  - listen:
+      name: superinsight
+      host: 0.0.0.0
+      port: 5432
+    redirect:
+      name: postgres
+      host: 0.0.0.0
+      port: 8432
+    intercept:
+      commands:
+        queries:
+          - plugin: postgres
+            function: rewrite_query
+        connects:
+      responses:

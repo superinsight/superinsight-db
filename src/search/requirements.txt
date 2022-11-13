@@ -1,0 +1,10 @@
+pandas==1.4.4
+kafka-python==2.0.2
+fastapi==0.79.0
+uvicorn==0.18.2
+cachetools==5.2.0
+datasets==2.5.1
+sentence-transformers==2.2.2
+transformers==4.24.0
+faiss-cpu==1.7.2
+validators==0.20.0
