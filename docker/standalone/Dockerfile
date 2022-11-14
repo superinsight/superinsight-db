@@ -6,6 +6,7 @@ ENV PGDATA=/db/superinsight/pgdata/data
 ENV MLDATA=/db/superinsight/model
 ENV LOGDATA=/db/superinsight/log
 ENV POSTGRES_DB=superinsight
+ENV TORCH_HOME=/db/superinsight/model/cache/torch
 ########################################################################################################################################################################
 RUN set -ex; \
 	if ! command -v gpg > /dev/null; then \
@@ -201,12 +202,11 @@ RUN chmod 777 /tmp
 # this 777 will be replaced by 700 at runtime (allows semi-arbitrary "--user" values)
 RUN mkdir -p "$MLDATA" && chown -R postgres:postgres "$MLDATA" && chmod 777 "$MLDATA"
 RUN mkdir -p "$LOGDATA" && chown -R postgres:postgres "$LOGDATA" && chmod 777 "$LOGDATA"
+RUN pip install gunicorn
 COPY ./src/server /usr/local/bin/superinsight/server
 RUN pip install -r /usr/local/bin/superinsight/server/requirements.txt
 COPY ./src/search /usr/local/bin/superinsight/search
 RUN pip install -r /usr/local/bin/superinsight/search/requirements.txt
-COPY ./src/search /usr/local/bin/superinsight/search-index
-RUN pip install -r /usr/local/bin/superinsight/search-index/requirements.txt
 COPY ./src/predict/transformers /usr/local/bin/superinsight/predict/transformers
 RUN pip install -r /usr/local/bin/superinsight/predict/transformers/requirements.txt
 ########################################################################################################################################################################

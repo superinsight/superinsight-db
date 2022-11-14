@@ -350,10 +350,9 @@ _main() {
 	chmod 700 "$LOGDATA" || :
 	nohup python3 /usr/local/bin/superinsight/proxy/main.py >> "$LOGDATA"/proxy.out 2>&1 &
 	nohup python3 /usr/local/bin/superinsight/server/main.py  >> "$LOGDATA"/server-index.out 2>&1 &
-	nohup uvicorn app:app --host 0.0.0.0 --port 8081 --app-dir /usr/local/bin/superinsight/server >> "$LOGDATA"/server.out 2>&1 &
-	nohup uvicorn app:app --host 0.0.0.0 --port 8082 --app-dir /usr/local/bin/superinsight/search >> "$LOGDATA"/search.out 2>&1 &
-	nohup uvicorn app:app --host 0.0.0.0 --port 8083 --app-dir /usr/local/bin/superinsight/search-index >> "$LOGDATA"/search-index.out 2>&1 &
-	nohup uvicorn app:app --host 0.0.0.0 --port 8084 --app-dir /usr/local/bin/superinsight/predict/transformers>> "$LOGDATA"/predict-transformers.out 2>&1 &
+	nohup gunicorn -k uvicorn.workers.UvicornWorker app:app --chdir /usr/local/bin/superinsight/server -w 1 --bind localhost:8081>> "$LOGDATA"/server.out 2>&1 &
+	nohup gunicorn -k uvicorn.workers.UvicornWorker app:app --chdir /usr/local/bin/superinsight/search -w 2 --bind localhost:8082 --bind localhost:8083>> "$LOGDATA"/search.out 2>&1 &
+	nohup gunicorn -k uvicorn.workers.UvicornWorker app:app --chdir /usr/local/bin/superinsight/predict/transformers -w 1 --bind localhost:8084>> "$LOGDATA"/predict-transformers.out 2>&1 &
 	echo 'Superinsight is now starting up.....'
 	echo '################################################################################################################################################'
 	exec "$@"
