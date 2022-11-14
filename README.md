@@ -30,7 +30,7 @@ docker run -v myhostpath/db:/db --name superinsight-db-standalone -p 5432:5432 -
 ```
 
 ## Environment Variables
-Variable ------------------ | Usage ------------------------------------------------------ 	| Default
+Variable 					| Usage														 	| Default
 --------------------------- | ------------------------------------------------------------ 	| --------
 SUPERINSIGHT_USER 			| The username of the database super user						| admin
 SUPERINSIGHT_PASSWORD 		| The password of the database super user 						| password
