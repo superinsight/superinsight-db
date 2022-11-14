@@ -3,6 +3,8 @@ FROM debian:bullseye-slim
 ##################################################################SUPERINSIGHT-ENV######################################################################################
 ENV PGPORT=8432
 ENV PGDATA=/db/superinsight/pgdata/data 
+ENV MLDATA=/db/superinsight/model
+ENV LOGDATA=/db/superinsight/log
 ENV POSTGRES_DB=superinsight
 ########################################################################################################################################################################
 RUN set -ex; \
@@ -196,8 +198,9 @@ RUN apt-get update \
 COPY ./src/proxy /usr/local/bin/superinsight/proxy
 RUN pip install -r /usr/local/bin/superinsight/proxy/requirements.txt
 RUN chmod 777 /tmp
-RUN mkdir -p /db/superinsight/models && chown -R postgres:postgres /db/superinsight/models && chmod 777 /db/superinsight/models
-RUN mkdir -p /db/superinsight/logs && chown -R postgres:postgres /db/superinsight/logs && chmod 777 /db/superinsight/logs
+# this 777 will be replaced by 700 at runtime (allows semi-arbitrary "--user" values)
+RUN mkdir -p "$MLDATA" && chown -R postgres:postgres "$MLDATA" && chmod 777 "$MLDATA"
+RUN mkdir -p "$LOGDATA" && chown -R postgres:postgres "$LOGDATA" && chmod 777 "$LOGDATA"
 COPY ./src/server /usr/local/bin/superinsight/server
 RUN pip install -r /usr/local/bin/superinsight/server/requirements.txt
 COPY ./src/search /usr/local/bin/superinsight/search

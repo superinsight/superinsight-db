@@ -343,6 +343,11 @@ _main() {
 	fi
 	################################################################################################################################################
 	echo 'Starting Superinsight Machine Learning Layers.....'
+	mkdir -p "$MLDATA"
+	mkdir -p "$LOGDATA"
+	# ignore failure since there are cases where we can't chmod (and PostgreSQL might fail later anyhow - it's picky about permissions of this directory)
+	chmod 700 "$MLDATA" || :
+	chmod 700 "$LOGDATA" || :
 	nohup python3 /usr/local/bin/superinsight/proxy/main.py >> /db/superinsight/logs/proxy.out 2>&1 &
 	nohup python3 /usr/local/bin/superinsight/server/main.py  >> /db/superinsight/logs/server-index.out 2>&1 &
 	nohup uvicorn app:app --host 0.0.0.0 --port 8081 --reload --app-dir /usr/local/bin/superinsight/server >> /db/superinsight/logs/server-read.out 2>&1 &
