@@ -1,7 +1,7 @@
 ---
 name: Bug report
-about: Create a report to help us improve
-title: ''
+about: Create a report to help us improve Superinsight
+title: 'BUG: Describe the bug you found here'
 labels: ''
 assignees: ''
 
