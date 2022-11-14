@@ -1,4 +1,4 @@
-FROM debian:bullseye-slim
+FROM python:3.8.12-slim-bullseye
 ########################################################################################################################################################################
 ##################################################################SUPERINSIGHT-ENV######################################################################################
 ENV PGPORT=8432
@@ -193,9 +193,7 @@ RUN chmod +x /usr/local/bin/docker-entrypoint.sh
 ##################################################################SUPERINSIGHT-INSTALLATIONS############################################################################
 RUN apt-get update \
     && apt-get -y upgrade \
-    && apt-get install -y git \
-    && apt-get install -y python3.8 \
-    && apt-get install -y python3.8-pip
+    && apt-get install -y git
 COPY ./src/proxy /usr/local/bin/superinsight/proxy
 RUN pip install -r /usr/local/bin/superinsight/proxy/requirements.txt
 RUN chmod 777 /tmp
