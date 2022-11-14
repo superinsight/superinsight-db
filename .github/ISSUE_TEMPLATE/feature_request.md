@@ -1,7 +1,7 @@
 ---
 name: Feature request
-about: Suggest an idea for this project
-title: ''
+about: Suggest an idea for Superinsight
+title: 'FEAT: It will be great if Superinsight can....'
 labels: ''
 assignees: ''
 
