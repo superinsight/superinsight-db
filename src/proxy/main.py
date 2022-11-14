@@ -57,8 +57,11 @@ def setupServer():
     config = getConfig()
     path = os.path.dirname(os.path.realpath(__file__))
     f = open(path + "/" + "setup.sql", "r")
-    sql = f.read()
-    return SqlHelper().execute(user = Environment.postgres_user, password = Environment.postgres_password , host = config.instances[0].redirect.host, port = config.instances[0].redirect.port, database = Environment.postgres_database, sql= sql)
+    setup_sql = f.read()
+    drop_default_sql = "DROP DATABASE IF EXISTS postgres;"
+    SqlHelper().execute(user = Environment.postgres_user, password = Environment.postgres_password , host = config.instances[0].redirect.host, port = config.instances[0].redirect.port, database = Environment.postgres_database, sql= setup_sql)
+    SqlHelper().execute(user = Environment.postgres_user, password = Environment.postgres_password , host = config.instances[0].redirect.host, port = config.instances[0].redirect.port, database = Environment.postgres_database, sql= drop_default_sql)
+    return True
 
 if(__name__=="__main__"):
     try:
