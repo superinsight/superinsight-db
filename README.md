@@ -5,6 +5,7 @@ Superinsight is a Machine Learning Relational Database for AI applications.
 - [What is Superinsight?](#what-is-superinsight)
 - [Docs](#docs)
 - [Get Started](#get-started)
+- [Environment Variables](#environment-variables])
 - [Need Help?](#need-help)
 - [Contributing](#contributing)
 
@@ -20,8 +21,20 @@ For guidance on how to use Superinsight, see our [User Documentation](https://do
 
 The best way to get started with Superinsight is to build and run our docker image
 ```
-docker run --name superinsight-db-standalone -p 5432:5432 -e ENV_IMAGE_TO_LABEL=True -e SUPERINSIGHT_USER=admin2 -e SUPERINSIGHT_PASSWORD=password2 superinsight/superinsight-db-standalone:latest
+docker run --name superinsight-db-standalone -p 5432:5432 -e SUPERINSIGHT_USER=admin -e SUPERINSIGHT_PASSWORD=password superinsight/superinsight-db-standalone:latest
 ```
+
+To mount a volumn to the data directory located in the path `/db` use the -v
+```
+docker run -v myhostpath/db:/db --name superinsight-db-standalone -p 5432:5432 -e SUPERINSIGHT_USER=admin -e SUPERINSIGHT_PASSWORD=password superinsight/superinsight-db-standalone:latest
+```
+
+## Environment Variables
+Variable ------------------ | Usage ------------------------------------------------------ 	| Default
+--------------------------- | ------------------------------------------------------------ 	| --------
+SUPERINSIGHT_USER 			| The username of the database super user						| admin
+SUPERINSIGHT_PASSWORD 		| The password of the database super user 						| password
+
 
 ## Need Help?
 

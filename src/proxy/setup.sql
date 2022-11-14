@@ -32,11 +32,13 @@ CREATE TABLE IF NOT EXISTS model.translation(
     source_language TEXT,
     target_language TEXT
 );
+/*
 CREATE TABLE IF NOT EXISTS model.recommender (
 	user_id TEXT,
 	item_id TEXT,
 	timestamp int4
 );
+*/
 
 CREATE TABLE IF NOT EXISTS system.table_logs (
 	_id serial PRIMARY KEY,

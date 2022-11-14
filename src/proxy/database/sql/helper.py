@@ -24,21 +24,20 @@ class SqlHelper:
 
   def execute(self, user, password, host, port, database, sql):
     self.logger.info("Database.SQL.SqlHelper.execute...")
+    conn = None
     if database is None:
       raise Exception("database is not defined")
     try:
       conn = psycopg2.connect(user=user, password=password, host=host, port=port, database=database)
-      cursor = conn.cursor()
-      print(sql)
-      cursor.execute(sql)
-      conn.commit()
+      with conn.cursor() as cursor:
+          conn.autocommit = True
+          cursor.execute(sql)
     except (Exception, psycopg2.Error) as error:
       self.logger.error("Database.SQL.SqlHelper.execute:except - Error while fetching data from PostgreSQL", error)
 
     finally:
       # closing database connection.
       if conn:
-        cursor.close()
         conn.close()
         self.logger.info("Database.SQL.SqlHelper.execute:finally - PostgreSQL conn is closed")
       return True
