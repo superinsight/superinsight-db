@@ -348,12 +348,12 @@ _main() {
 	# ignore failure since there are cases where we can't chmod (and PostgreSQL might fail later anyhow - it's picky about permissions of this directory)
 	chmod 700 "$MLDATA" || :
 	chmod 700 "$LOGDATA" || :
-	nohup python3 /usr/local/bin/superinsight/proxy/main.py >> /db/superinsight/logs/proxy.out 2>&1 &
-	nohup python3 /usr/local/bin/superinsight/server/main.py  >> /db/superinsight/logs/server-index.out 2>&1 &
-	nohup uvicorn app:app --host 0.0.0.0 --port 8081 --reload --app-dir /usr/local/bin/superinsight/server >> /db/superinsight/logs/server-read.out 2>&1 &
-	nohup uvicorn app:app --host 0.0.0.0 --port 8082 --reload --app-dir /usr/local/bin/superinsight/search >> /db/superinsight/logs/search-read.out 2>&1 &
-	nohup uvicorn app:app --host 0.0.0.0 --port 8083 --reload --app-dir /usr/local/bin/superinsight/search >> /db/superinsight/logs/search-index.out 2>&1 &
-	nohup uvicorn app:app --host 0.0.0.0 --port 8084 --reload --app-dir /usr/local/bin/superinsight/predict/transformers>> /db/superinsight/logs/predict-transformers.out 2>&1 &
+	nohup python3 /usr/local/bin/superinsight/proxy/main.py >> "$LOGDATA"/proxy.out 2>&1 &
+	nohup python3 /usr/local/bin/superinsight/server/main.py  >> "$LOGDATA"/server-index.out 2>&1 &
+	nohup uvicorn app:app --host 0.0.0.0 --port 8081 --reload --app-dir /usr/local/bin/superinsight/server >> "$LOGDATA"/server-read.out 2>&1 &
+	nohup uvicorn app:app --host 0.0.0.0 --port 8082 --reload --app-dir /usr/local/bin/superinsight/search >> "$LOGDATA"/search-read.out 2>&1 &
+	nohup uvicorn app:app --host 0.0.0.0 --port 8083 --reload --app-dir /usr/local/bin/superinsight/search >> "$LOGDATA"/search-index.out 2>&1 &
+	nohup uvicorn app:app --host 0.0.0.0 --port 8084 --reload --app-dir /usr/local/bin/superinsight/predict/transformers>> "$LOGDATA"/predict-transformers.out 2>&1 &
 	echo 'Superinsight is now starting up.....'
 	echo '################################################################################################################################################'
 	exec "$@"
