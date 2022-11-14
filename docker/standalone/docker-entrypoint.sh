@@ -343,12 +343,12 @@ _main() {
 	fi
 	################################################################################################################################################
 	echo 'Starting Superinsight Machine Learning Layers.....'
-	nohup python3 /usr/local/bin/superinsight/proxy/main.py >> /var/lib/postgresql/proxy.out 2>&1 &
-	nohup python3 /usr/local/bin/superinsight/server/main.py  >> /var/lib/postgresql/server-indexer.out 2>&1 &
-	nohup uvicorn app:app --host 0.0.0.0 --port 8081 --reload --app-dir /usr/local/bin/superinsight/server &
-	nohup uvicorn app:app --host 0.0.0.0 --port 8082 --reload --app-dir /usr/local/bin/superinsight/search &
-	nohup uvicorn app:app --host 0.0.0.0 --port 8083 --reload --app-dir /usr/local/bin/superinsight/search &
-	nohup uvicorn app:app --host 0.0.0.0 --port 8084 --reload --app-dir /usr/local/bin/superinsight/predict/transformers &
+	nohup python3 /usr/local/bin/superinsight/proxy/main.py >> /db/superinsight/logs/proxy.out 2>&1 &
+	nohup python3 /usr/local/bin/superinsight/server/main.py  >> /db/superinsight/logs/server-index.out 2>&1 &
+	nohup uvicorn app:app --host 0.0.0.0 --port 8081 --reload --app-dir /usr/local/bin/superinsight/server >> /db/superinsight/logs/server-read.out 2>&1 &
+	nohup uvicorn app:app --host 0.0.0.0 --port 8082 --reload --app-dir /usr/local/bin/superinsight/search >> /db/superinsight/logs/search-read.out 2>&1 &
+	nohup uvicorn app:app --host 0.0.0.0 --port 8083 --reload --app-dir /usr/local/bin/superinsight/search >> /db/superinsight/logs/search-index.out 2>&1 &
+	nohup uvicorn app:app --host 0.0.0.0 --port 8084 --reload --app-dir /usr/local/bin/superinsight/predict/transformers>> /db/superinsight/logs/predict-transformers.out 2>&1 &
 	echo 'Superinsight is now starting up.....'
 	echo '################################################################################################################################################'
 	exec "$@"
