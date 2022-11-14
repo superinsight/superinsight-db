@@ -20,15 +20,26 @@ pip install -r requirements.txt
 
 ## Run the server as search
 ```
-uvicorn app:app --host 0.0.0.0 --port 8082 --reload
+ENV_STORAGE="./db" uvicorn app:app --host 0.0.0.0 --port 8082 --reload
 ```
 
-## Run the server as indexer 
+## Run the server as indexer if using kafka 
 ```
 ENV_STORAGE="./db" ENV_KAFKA_TOPIC_TO_CONSUME="all" python main.py
 ENV_STORAGE="./db" ENV_KAFKA_TOPIC_TO_CONSUME="divide" python main.py
 ENV_STORAGE="./db" ENV_KAFKA_TOPIC_TO_CONSUME="conquer" python main.py
 ENV_STORAGE="./db" ENV_KAFKA_TOPIC_TO_CONSUME="combine" python main.py
+```
+
+## Start Redis Server Locally or with docker if using redis queue
+```
+docker run --name my-redis-container -p 6379:6379 -d redis
+```
+```
+redis-server
+```
+```
+ENV_STORAGE="./db" rq worker --with-scheduler
 ```
 
 ### Build Docker Image

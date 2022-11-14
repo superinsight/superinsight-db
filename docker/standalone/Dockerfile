@@ -193,7 +193,13 @@ RUN chmod +x /usr/local/bin/docker-entrypoint.sh
 ##################################################################SUPERINSIGHT-INSTALLATIONS############################################################################
 RUN apt-get update \
     && apt-get -y upgrade \
+    && apt-get install -y lsb-release \
+    && apt-get install -y curl \
     && apt-get install -y git
+RUN curl -fsSL https://packages.redis.io/gpg | gpg --dearmor -o /usr/share/keyrings/redis-archive-keyring.gpg
+RUN echo "deb [signed-by=/usr/share/keyrings/redis-archive-keyring.gpg] https://packages.redis.io/deb $(lsb_release -cs) main" | tee /etc/apt/sources.list.d/redis.list
+RUN apt-get update
+RUN apt-get install redis -y
 COPY ./src/proxy /usr/local/bin/superinsight/proxy
 RUN pip install -r /usr/local/bin/superinsight/proxy/requirements.txt
 RUN chmod 777 /tmp
