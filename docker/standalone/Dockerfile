@@ -192,9 +192,7 @@ RUN apt-get update \
     && apt-get -y upgrade \
     && apt-get install -y git \
     && apt-get install -y python3 \
-    && apt-get install -y python3-pip \
-    && apt-get install -y vim \
-    && apt-get install -y sudo
+    && apt-get install -y python3-pip
 COPY ./src/proxy /usr/local/bin/superinsight/proxy
 RUN pip install -r /usr/local/bin/superinsight/proxy/requirements.txt
 RUN chmod 777 /tmp
