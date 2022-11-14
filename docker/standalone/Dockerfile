@@ -194,8 +194,8 @@ RUN chmod +x /usr/local/bin/docker-entrypoint.sh
 RUN apt-get update \
     && apt-get -y upgrade \
     && apt-get install -y git \
-    && apt-get install -y python3 \
-    && apt-get install -y python3-pip
+    && apt-get install -y python3.8 \
+    && apt-get install -y python3.8-pip
 COPY ./src/proxy /usr/local/bin/superinsight/proxy
 RUN pip install -r /usr/local/bin/superinsight/proxy/requirements.txt
 RUN chmod 777 /tmp
