@@ -347,6 +347,7 @@ _main() {
 	nohup python3 /usr/local/bin/superinsight/server/main.py  >> /var/lib/postgresql/server-indexer.out 2>&1 &
 	nohup uvicorn app:app --host 0.0.0.0 --port 8081 --reload --app-dir /usr/local/bin/superinsight/server &
 	nohup uvicorn app:app --host 0.0.0.0 --port 8082 --reload --app-dir /usr/local/bin/superinsight/search &
+	nohup uvicorn app:app --host 0.0.0.0 --port 8083 --reload --app-dir /usr/local/bin/superinsight/search &
 	nohup uvicorn app:app --host 0.0.0.0 --port 8084 --reload --app-dir /usr/local/bin/superinsight/predict/transformers &
 	echo 'Superinsight is now starting up.....'
 	echo '################################################################################################################################################'
