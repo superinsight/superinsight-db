@@ -343,13 +343,6 @@ _main() {
 	fi
 	################################################################################################################################################
 	echo 'Starting Superinsight Machine Learning Layers.....'
-	mkdir -p "$MLDATA"
-	mkdir -p "$LOGDATA"
-	mkdir -p "$REDISDATA"
-	# ignore failure since there are cases where we can't chmod (and PostgreSQL might fail later anyhow - it's picky about permissions of this directory)
-	chmod 700 "$MLDATA" || :
-	chmod 700 "$LOGDATA" || :
-	chmod 700 "$REDISDATA" || :
 	nohup python3 /usr/local/bin/superinsight/proxy/main.py >> "$LOGDATA"/proxy.out 2>&1 &
 	nohup python3 /usr/local/bin/superinsight/server/main.py  >> "$LOGDATA"/server-index.out 2>&1 &
 	nohup redis-server >> "$LOGDATA"/redis-server.out 2>&1 &
