@@ -1,4 +1,4 @@
-FROM python:3.8.12-slim-bullseye
+FROM debian:bullseye-slim
 ########################################################################################################################################################################
 ##################################################################SUPERINSIGHT-ENV######################################################################################
 ENV PGPORT=8432
@@ -6,7 +6,6 @@ ENV PGDATA=/db/superinsight/pgdata/data
 ENV MLDATA=/db/superinsight/model
 ENV LOGDATA=/db/superinsight/log
 ENV POSTGRES_DB=superinsight
-ENV TORCH_HOME=/db/superinsight/model/cache/torch
 ########################################################################################################################################################################
 RUN set -ex; \
 	if ! command -v gpg > /dev/null; then \
@@ -193,9 +192,12 @@ RUN chmod +x /usr/local/bin/docker-entrypoint.sh
 ##################################################################SUPERINSIGHT-INSTALLATIONS############################################################################
 RUN apt-get update \
     && apt-get -y upgrade \
+    && apt-get install -y git \
+    && apt-get install -y python3 \
+    && apt-get install -y python3-pip \
     && apt-get install -y lsb-release \
-    && apt-get install -y curl \
-    && apt-get install -y git
+    && apt-get install -y curl
+
 RUN curl -fsSL https://packages.redis.io/gpg | gpg --dearmor -o /usr/share/keyrings/redis-archive-keyring.gpg
 RUN echo "deb [signed-by=/usr/share/keyrings/redis-archive-keyring.gpg] https://packages.redis.io/deb $(lsb_release -cs) main" | tee /etc/apt/sources.list.d/redis.list
 RUN apt-get update
