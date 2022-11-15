@@ -20,7 +20,7 @@ class Environment:
   provider_api_url_superinsight = os.getenv("ENV_INFERENCE_URL", "http://0.0.0.0:8084")
   provider_api_url_superinsight_recommender = os.getenv("ENV_SUPERINSIGHT_RECOMMENDER_URL", "http://localhost:8081")
   provider_api_url_superinsight_search = os.getenv("ENV_SUPERINSIGHT_SEARCH_URL", "http://localhost:8082")
-  provider_api_url_superinsight_search_indexing = os.getenv("ENV_SUPERINSIGHT_SEARCH_INDEXING_URL", "http://localhost:8083")
+  provider_api_url_superinsight_search_indexing = os.getenv("ENV_SUPERINSIGHT_SEARCH_INDEXING_URL", "http://localhost:8082")
   text_generation_inputs_name = os.getenv("ENV_TEXT_GENERATION_INPUTS_NAME", "inputs")
   question_answering_inputs_name = os.getenv("ENV_QUESTION_ANSWERING_INPUTS_NAME", "inputs")
   summarization_inputs_name = os.getenv("ENV_SUMMARIZATION_INPUTS_NAME", "inputs")
