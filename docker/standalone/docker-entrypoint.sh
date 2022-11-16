@@ -350,6 +350,7 @@ _main() {
 	nohup python3 /usr/local/bin/superinsight/proxy/main.py >> "$LOGDATA"/proxy.out 2>&1 &
 	nohup python3 /usr/local/bin/superinsight/server/main.py  >> "$LOGDATA"/server-index.out 2>&1 &
 	nohup redis-server >> "$LOGDATA"/redis-server.out 2>&1 &
+	redis-cli config set stop-writes-on-bgsave-error no
 	nohup gunicorn -k uvicorn.workers.UvicornWorker app:app --chdir /usr/local/bin/superinsight/server -w 1 --bind localhost:8081>> "$LOGDATA"/server.out 2>&1 &
 	nohup gunicorn -k uvicorn.workers.UvicornWorker app:app --chdir /usr/local/bin/superinsight/search -w 1 --bind localhost:8082>> "$LOGDATA"/search.out 2>&1 &
 	nohup gunicorn -k uvicorn.workers.UvicornWorker app:app --chdir /usr/local/bin/superinsight/predict/transformers -w 1 --bind localhost:8084>> "$LOGDATA"/predict-transformers.out 2>&1 &
