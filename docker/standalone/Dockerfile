@@ -3,8 +3,8 @@ FROM debian:bullseye-slim
 ##################################################################SUPERINSIGHT-ENV######################################################################################
 ENV PGPORT=8432
 ENV PGDATA=/db/superinsight/pgdata/data 
-ENV MLDATA=/db/superinsight/model
-ENV LOGDATA=/db/superinsight/log
+ENV MLDATA=/db/superinsight/models
+ENV LOGDATA=/db/superinsight/logs
 ENV POSTGRES_DB=superinsight
 ENV REDISDATA=/etc/redis
 ########################################################################################################################################################################
@@ -207,10 +207,10 @@ COPY ./src/proxy /usr/local/bin/superinsight/proxy
 RUN pip install -r /usr/local/bin/superinsight/proxy/requirements.txt
 RUN chmod 777 /tmp
 # this 777 will be replaced by 700 at runtime (allows semi-arbitrary "--user" values)
-RUN mkdir -p "$MLDATA" && chown -R postgres:postgres "$MLDATA" && chmod 777 "$MLDATA"
-RUN mkdir -p "$LOGDATA" && chown -R postgres:postgres "$LOGDATA" && chmod 777 "$LOGDATA"
-RUN mkdir -p "$REDISDATA" && chown -R postgres:postgres "$REDISDATA" && chmod 777 "$REDISDATA"
-RUN chown -R postgres:postgres /etc/redis && chmod 777 /etc/redis
+RUN mkdir -p "$MLDATA" && chown -R postgres:postgres "$MLDATA" && chmod -R 777 "$MLDATA"
+RUN mkdir -p "$LOGDATA" && chown -R postgres:postgres "$LOGDATA" && chmod -R 777 "$LOGDATA"
+RUN mkdir -p "$REDISDATA" && chown -R postgres:postgres "$REDISDATA" && chmod -R 777 "$REDISDATA"
+RUN chown -R postgres:postgres /etc/redis && chmod -R 777 /etc/redis
 
 RUN pip install gunicorn
 COPY ./src/server /usr/local/bin/superinsight/server
