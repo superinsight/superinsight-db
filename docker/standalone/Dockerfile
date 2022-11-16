@@ -209,9 +209,9 @@ RUN chmod 777 /tmp
 # this 777 will be replaced by 700 at runtime (allows semi-arbitrary "--user" values)
 RUN mkdir -p "$MLDATA" && chown -R postgres:postgres "$MLDATA" && chmod -R 777 "$MLDATA"
 RUN mkdir -p "$LOGDATA" && chown -R postgres:postgres "$LOGDATA" && chmod -R 777 "$LOGDATA"
-RUN mkdir -p "$REDISDATA" && chown -R postgres:postgres "$REDISDATA" && chmod -R 777 "$REDISDATA"
 
 RUN pip install gunicorn
+COPY ./src/redis /usr/local/bin/superinsight/redis
 COPY ./src/server /usr/local/bin/superinsight/server
 RUN pip install -r /usr/local/bin/superinsight/server/requirements.txt
 COPY ./src/search /usr/local/bin/superinsight/search

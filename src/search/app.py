@@ -5,7 +5,7 @@ from typing import List
 from common.storage_location import StorageLocation
 import os, sys
 from ml.pipeline.faiss import FaissPipeline
-from database.queue import DatabaseQueue
+from database.queue import enqueueItems
 from redis import Redis
 from rq import Queue
 
@@ -66,7 +66,7 @@ async def create(database: str, index_id: str, req: CreateRequest):
 
       items = req.items
       queue = Queue(connection=Redis())
-      queue.enqueue(DatabaseQueue.dbEnqueue, default_storage, database, index_id, items)
+      queue.enqueue(enqueueItems, default_storage, database, index_id, items)
       return { "status": "created"}
     except:
       print("Unexpected error:", sys.exc_info()[0])
