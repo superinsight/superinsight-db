@@ -6,7 +6,7 @@ ENV PGDATA=/db/superinsight/pgdata/data
 ENV MLDATA=/db/superinsight/models
 ENV LOGDATA=/db/superinsight/logs
 ENV POSTGRES_DB=superinsight
-ENV REDISDATA=/etc/redis
+ENV REDISDATA=/usr/local/bin/superinsight/redis
 ########################################################################################################################################################################
 RUN set -ex; \
 	if ! command -v gpg > /dev/null; then \
@@ -210,7 +210,6 @@ RUN chmod 777 /tmp
 RUN mkdir -p "$MLDATA" && chown -R postgres:postgres "$MLDATA" && chmod -R 777 "$MLDATA"
 RUN mkdir -p "$LOGDATA" && chown -R postgres:postgres "$LOGDATA" && chmod -R 777 "$LOGDATA"
 RUN mkdir -p "$REDISDATA" && chown -R postgres:postgres "$REDISDATA" && chmod -R 777 "$REDISDATA"
-RUN chown -R postgres:postgres /etc/redis && chmod -R 777 /etc/redis
 
 RUN pip install gunicorn
 COPY ./src/server /usr/local/bin/superinsight/server

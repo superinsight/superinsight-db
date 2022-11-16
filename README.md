@@ -1,6 +1,10 @@
+<p align="center">
+  <img src='docs/media/banner.png' width='80%'>
+</p>
 
+---
 
-Superinsight is a Machine Learning Relational Database for AI applications.
+Superinsight is a Relational Database for Unstructured Data.
 
 - [What is Superinsight?](#what-is-superinsight)
 - [Docs](#docs)
@@ -11,7 +15,7 @@ Superinsight is a Machine Learning Relational Database for AI applications.
 
 ## What is Superinsight?
 
-Superinsight is a Machine Learning Relational Database, its main purpose is to provide machine learning features within the database so any applications and business intelligence software that utliize SQL can take advantage of AI capabilities. Superinsight is build on top of PostgreSQL so you can take advantage of everything in PostgreSQL plus the ability to run machine learning operations using SQL statements.
+Superinsight is a Relational Database for Unstructured Data, its main purpose is to provide a simple SQL interface to store and search unstructured data. Superinsight is build on top of PostgreSQL so you can take advantage of everything in PostgreSQL plus the ability to run machine learning operations using SQL statements.
 
 ## Docs
 
