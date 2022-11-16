@@ -42,7 +42,7 @@ class Exporter:
   def verifyDestination(self):
     if self.destination == ExportDestination.HTTP:
       try:
-        http_resp = requests.get(Environment.provider_api_url_superinsight_search)
+        http_resp = requests.get(Environment.provider_api_url_superinsight_search_indexing)
         return http_resp.status_code == 200
       except:
         return False
@@ -66,7 +66,7 @@ class Exporter:
 
   def post(self, database, table_schema, table_name, table_column, rows, version):
     index_id = SemanticSearch().getIndexId(database= database, table_schema = table_schema, table_name = table_name , table_column = table_column)
-    url = "{}/{}/{}/".format(Environment.provider_api_url_superinsight_search, database, index_id)
+    url = "{}/{}/{}/".format(Environment.provider_api_url_superinsight_search_indexing, database, index_id)
     messages = self.formatForHttpPost(database =database, index_id = index_id, table_column = table_column, rows=rows)
     payload = json.dumps({ "items": messages })
     self.logger.info("Export Messsges via HTTP POST: {}".format(payload))

@@ -56,7 +56,7 @@ def serverIsAvailable():
 def setupServer():
     config = getConfig()
     path = os.path.dirname(os.path.realpath(__file__))
-    f = open(path + "/" + "setup.sql", "r")
+    f = open(path + "/" + "database/setup.sql", "r")
     setup_sql = f.read()
     drop_default_sql = "DROP DATABASE IF EXISTS postgres;"
     SqlHelper().execute(user = Environment.postgres_user, password = Environment.postgres_password , host = config.instances[0].redirect.host, port = config.instances[0].redirect.port, database = Environment.postgres_database, sql= setup_sql)

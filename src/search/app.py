@@ -5,8 +5,10 @@ from typing import List
 from common.storage_location import StorageLocation
 import os, sys
 from ml.pipeline.faiss import FaissPipeline
-from ml.pipeline.embed import EmbedPipeline
-import json
+from database.queue import enqueueItems
+from redis import Redis
+from rq import Queue
+
 app = FastAPI()
 version = "0.9.1"
 os.environ["KMP_DUPLICATE_LIB_OK"]="True"
@@ -61,18 +63,10 @@ async def count(database: str, index_id: str):
 @app.post("/{database}/{index_id}/")
 async def create(database: str, index_id: str, req: CreateRequest):
     try:
+
       items = req.items
-      for item in req.items:
-        print(item)
-        text_embedding, context_embedding, label_embedding, text_generated, labels_generated = EmbedPipeline().encode(text = item["column_value"])
-        print(text_embedding, context_embedding, label_embedding, text_generated, labels_generated)
-        item["database"] = database
-        item["index_id"] = index_id
-        item["text_embedding"] = text_embedding
-        item["embedding"] = json.dumps(text_embedding.tolist())
-        item["context_embedding"] = json.dumps(context_embedding.tolist())
-        item["label_embedding"] = json.dumps(label_embedding.tolist())
-      FaissPipeline(storage_location=default_storage).write(database,index_id, items)
+      queue = Queue(connection=Redis())
+      queue.enqueue(enqueueItems, default_storage, database, index_id, items)
       return { "status": "created"}
     except:
       print("Unexpected error:", sys.exc_info()[0])

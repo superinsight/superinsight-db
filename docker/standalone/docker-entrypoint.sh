@@ -343,11 +343,18 @@ _main() {
 	fi
 	################################################################################################################################################
 	echo 'Starting Superinsight Machine Learning Layers.....'
-	nohup python3 /usr/local/bin/superinsight/proxy/main.py >> /var/lib/postgresql/proxy.out 2>&1 &
-	nohup python3 /usr/local/bin/superinsight/server/main.py  >> /var/lib/postgresql/server-indexer.out 2>&1 &
-	nohup uvicorn app:app --host 0.0.0.0 --port 8081 --reload --app-dir /usr/local/bin/superinsight/server &
-	nohup uvicorn app:app --host 0.0.0.0 --port 8082 --reload --app-dir /usr/local/bin/superinsight/search &
-	nohup uvicorn app:app --host 0.0.0.0 --port 8084 --reload --app-dir /usr/local/bin/superinsight/predict/transformers &
+	# ignore failure since there are cases where we can't chmod (and PostgreSQL might fail later anyhow - it's picky about permissions of this directory)
+	chmod -R 777 "$MLDATA" || :
+	chmod -R 777 "$LOGDATA" || :
+	chmod -R 777 /etc/redis || :
+	nohup python3 /usr/local/bin/superinsight/proxy/main.py >> "$LOGDATA"/proxy.out 2>&1 &
+	nohup python3 /usr/local/bin/superinsight/server/main.py  >> "$LOGDATA"/server-index.out 2>&1 &
+	cp "$REDISDATA"/redis.conf /etc/redis/redis.conf
+	nohup redis-server >> "$LOGDATA"/redis-server.out 2>&1 &
+	nohup gunicorn -k uvicorn.workers.UvicornWorker app:app --chdir /usr/local/bin/superinsight/server -w 1 --bind localhost:8081>> "$LOGDATA"/server.out 2>&1 &
+	nohup gunicorn -k uvicorn.workers.UvicornWorker app:app --chdir /usr/local/bin/superinsight/search -w 1 --bind localhost:8082>> "$LOGDATA"/search.out 2>&1 &
+	nohup gunicorn -k uvicorn.workers.UvicornWorker app:app --chdir /usr/local/bin/superinsight/predict/transformers -w 1 --bind localhost:8084>> "$LOGDATA"/predict-transformers.out 2>&1 &
+	nohup rq worker --with-scheduler --path /usr/local/bin/superinsight/search >> "$LOGDATA"/search-worker.out 2>&1 &
 	echo 'Superinsight is now starting up.....'
 	echo '################################################################################################################################################'
 	exec "$@"
