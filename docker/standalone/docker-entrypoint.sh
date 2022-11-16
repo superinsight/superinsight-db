@@ -346,7 +346,7 @@ _main() {
 	# ignore failure since there are cases where we can't chmod (and PostgreSQL might fail later anyhow - it's picky about permissions of this directory)
 	chmod -R 777 "$MLDATA" || :
 	chmod -R 777 "$LOGDATA" || :
-	mkdir -p /etc/redis
+	chmod -R 777 /etc/redis || :
 	nohup python3 /usr/local/bin/superinsight/proxy/main.py >> "$LOGDATA"/proxy.out 2>&1 &
 	nohup python3 /usr/local/bin/superinsight/server/main.py  >> "$LOGDATA"/server-index.out 2>&1 &
 	cp "$REDISDATA"/redis.conf /etc/redis/redis.conf

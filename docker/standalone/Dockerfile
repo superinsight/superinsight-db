@@ -209,6 +209,7 @@ RUN chmod 777 /tmp
 # this 777 will be replaced by 700 at runtime (allows semi-arbitrary "--user" values)
 RUN mkdir -p "$MLDATA" && chown -R postgres:postgres "$MLDATA" && chmod -R 777 "$MLDATA"
 RUN mkdir -p "$LOGDATA" && chown -R postgres:postgres "$LOGDATA" && chmod -R 777 "$LOGDATA"
+RUN mkdir -p /etc/redis && chown -R postgres:postgres /etc/redis && chmod -R 777 /etc/redis
 
 RUN pip install gunicorn
 COPY ./src/redis /usr/local/bin/superinsight/redis
