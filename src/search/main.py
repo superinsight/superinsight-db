@@ -1,9 +1,12 @@
 from logging import config
 from environment import Environment
 from database.consumer import DatabaseConsumer
+from database.queue import DatabaseQueue
 from common.storage_location import StorageLocation
 from common.consume_topic import ConsumeTopic
+import time
 storage = Environment.default_storage
+default_storage = StorageLocation.LOCAL_DISK
 version = "0.9.2"
 config.dictConfig({
     "version": 1,
@@ -42,6 +45,10 @@ def main():
         print(topics)
         DatabaseConsumer().consume(topics=topics,
                                    storage_location=StorageLocation.LOCAL_DISK)
+    if Environment.kafka_topic_to_consume.upper() == ConsumeTopic.NONE.value:
+        while True:
+            DatabaseQueue().dequeue(storage_location=default_storage)
+            time.sleep(10)
 
 if __name__ == "__main__":
     main()
