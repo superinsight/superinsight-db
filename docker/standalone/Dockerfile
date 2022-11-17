@@ -6,7 +6,6 @@ ENV PGDATA=/db/superinsight/pgdata/data
 ENV MLDATA=/db/superinsight/models
 ENV LOGDATA=/db/superinsight/logs
 ENV POSTGRES_DB=superinsight
-ENV REDISDATA=/usr/local/bin/superinsight/redis
 ########################################################################################################################################################################
 RUN set -ex; \
 	if ! command -v gpg > /dev/null; then \
@@ -199,20 +198,14 @@ RUN apt-get update \
     && apt-get install -y lsb-release \
     && apt-get install -y curl
 
-RUN curl -fsSL https://packages.redis.io/gpg | gpg --dearmor -o /usr/share/keyrings/redis-archive-keyring.gpg
-RUN echo "deb [signed-by=/usr/share/keyrings/redis-archive-keyring.gpg] https://packages.redis.io/deb $(lsb_release -cs) main" | tee /etc/apt/sources.list.d/redis.list
-RUN apt-get update
-RUN apt-get install redis -y
 COPY ./src/proxy /usr/local/bin/superinsight/proxy
 RUN pip install -r /usr/local/bin/superinsight/proxy/requirements.txt
 RUN chmod 777 /tmp
 # this 777 will be replaced by 700 at runtime (allows semi-arbitrary "--user" values)
 RUN mkdir -p "$MLDATA" && chown -R postgres:postgres "$MLDATA" && chmod -R 777 "$MLDATA"
 RUN mkdir -p "$LOGDATA" && chown -R postgres:postgres "$LOGDATA" && chmod -R 777 "$LOGDATA"
-RUN mkdir -p /etc/redis && chown -R postgres:postgres /etc/redis && chmod -R 777 /etc/redis
 
 RUN pip install gunicorn
-COPY ./src/redis /usr/local/bin/superinsight/redis
 COPY ./src/server /usr/local/bin/superinsight/server
 RUN pip install -r /usr/local/bin/superinsight/server/requirements.txt
 COPY ./src/search /usr/local/bin/superinsight/search
