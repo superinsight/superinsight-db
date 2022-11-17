@@ -15,18 +15,19 @@ from ml.pipeline.embed import EmbedPipeline
 
 class DatabaseConsumer:
 
-  consumer = KafkaConsumer(bootstrap_servers=Environment.kafka_bootstrap_servers, group_id=Environment.kafka_group_default, auto_offset_reset='earliest')
-
-  producer_conquer = KafkaProducer(bootstrap_servers=Environment.kafka_bootstrap_servers, key_serializer=str.encode,
-                                   value_serializer=lambda v: json.dumps(v).encode('utf-8'))
-  producer_combine = KafkaProducer(bootstrap_servers=Environment.kafka_bootstrap_servers, key_serializer=str.encode,
-                                   value_serializer=lambda v: json.dumps(v).encode('utf-8'))
+  producer_conquer = None
+  producer_combine = None
   storage_location = None
   faiss_pipeline = None
   logger = logging.getLogger(__name__)
   logger.setLevel(logging.INFO)
 
   def consume(self, topics=None, storage_location=StorageLocation.LOCAL_DISK):
+    consumer = KafkaConsumer(bootstrap_servers=Environment.kafka_bootstrap_servers, group_id=Environment.kafka_group_default, auto_offset_reset='earliest')
+    self.producer_conquer = KafkaProducer(bootstrap_servers=Environment.kafka_bootstrap_servers, key_serializer=str.encode,
+                                   value_serializer=lambda v: json.dumps(v).encode('utf-8'))
+    self.producer_combine = KafkaProducer(bootstrap_servers=Environment.kafka_bootstrap_servers, key_serializer=str.encode,
+                                   value_serializer=lambda v: json.dumps(v).encode('utf-8'))
     self.logger.info("Consuming topic: {} for group id: {}".format(
         topics, Environment.kafka_group_default))
     self.storage_location = storage_location
@@ -34,7 +35,7 @@ class DatabaseConsumer:
     try:
       print("subscribe: ", topics)
       self.logger.info("subscribe: ", topics)
-      self.consumer.subscribe(topics)
+      consumer.subscribe(topics)
       for msg in self.consumer:
         self.logger.info("consumed: ", msg.topic, msg.partition, msg.offset,
                           msg.key, msg.value, msg.timestamp)
@@ -45,7 +46,7 @@ class DatabaseConsumer:
         if (msg.topic == Environment.kafka_topic_combine):
           self.combine(msg.value)
     finally:
-      self.consumer.close()
+      consumer.close()
 
   def divide(self, message):
     start_time = time.time()

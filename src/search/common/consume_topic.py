@@ -4,3 +4,4 @@ class ConsumeTopic(Enum):
     CONQUER = "CONQUER"
     COMBINE = "COMBINE"
     ALL = "ALL"
+    NONE = "NONE"

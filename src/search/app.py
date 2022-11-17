@@ -5,9 +5,7 @@ from typing import List
 from common.storage_location import StorageLocation
 import os, sys
 from ml.pipeline.faiss import FaissPipeline
-from database.queue import enqueueItems
-from redis import Redis
-from rq import Queue
+from database.queue import DatabaseQueue
 
 app = FastAPI()
 version = "0.9.1"
@@ -63,10 +61,8 @@ async def count(database: str, index_id: str):
 @app.post("/{database}/{index_id}/")
 async def create(database: str, index_id: str, req: CreateRequest):
     try:
-
       items = req.items
-      queue = Queue(connection=Redis())
-      queue.enqueue(enqueueItems, default_storage, database, index_id, items)
+      DatabaseQueue().enqueue(database=database, index_id=index_id, items=items)
       return { "status": "created"}
     except:
       print("Unexpected error:", sys.exc_info()[0])
