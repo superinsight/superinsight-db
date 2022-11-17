@@ -355,6 +355,7 @@ _main() {
 	nohup gunicorn -k uvicorn.workers.UvicornWorker app:app --chdir /usr/local/bin/superinsight/search -w 1 --bind localhost:8082>> "$LOGDATA"/search.out 2>&1 &
 	nohup gunicorn -k uvicorn.workers.UvicornWorker app:app --chdir /usr/local/bin/superinsight/predict/transformers -w 1 --bind localhost:8084>> "$LOGDATA"/predict-transformers.out 2>&1 &
 	nohup rq worker --with-scheduler --path /usr/local/bin/superinsight/search >> "$LOGDATA"/search-worker.out 2>&1 &
+	redis-cli config set stop-writes-on-bgsave-error no
 	echo 'Superinsight is now starting up.....'
 	echo '################################################################################################################################################'
 	exec "$@"
