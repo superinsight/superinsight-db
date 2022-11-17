@@ -3,7 +3,7 @@ import os
 class Environment:
 
   default_storage = os.getenv("ENV_STORAGE", "/db/superinsight/models/private/semantic-search")
-  kafka_topic_to_consume = str(os.getenv("ENV_KAFKA_TOPIC_TO_CONSUME", "divide"))
+  kafka_topic_to_consume = str(os.getenv("ENV_KAFKA_TOPIC_TO_CONSUME", "none"))
   kafka_topic_divide = str(os.getenv("ENV_KAFKA_TOPIC_DIVIDE", "superinsight_ml_search_divide_V0911"))
   kafka_topic_conquer = str(os.getenv("ENV_KAFKA_TOPIC_CONQUER", "superinsight_ml_search_conquer_V0911"))
   kafka_topic_combine = str(os.getenv("ENV_KAFKA_TOPIC_TO_COMBINE", "superinsight_ml_search_combine_V0911"))
