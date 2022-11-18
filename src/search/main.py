@@ -47,8 +47,12 @@ def main():
                                    storage_location=StorageLocation.LOCAL_DISK)
     if Environment.kafka_topic_to_consume.upper() == ConsumeTopic.NONE.value:
         while True:
-            DatabaseQueue().dequeue(storage_location=default_storage)
-            time.sleep(10)
+            try:
+                DatabaseQueue().dequeue(storage_location=default_storage)
+                time.sleep(3)
+            except Exception as e:
+                print(e)
+                time.sleep(30)
 
 if __name__ == "__main__":
     main()
