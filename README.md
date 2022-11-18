@@ -1,17 +1,6 @@
 <p align="center">
-  <img src='docs/media/repo-banner.png' width='100%'>
+  <img src='docs/media/banner.png' width='80%'>
 </p>
-
----
-
-Superinsight is a Relational Database for Unstructured Data.
-
-- [What is Superinsight?](#what-is-superinsight)
-- [Docs](#docs)
-- [Get Started](#get-started)
-- [Environment Variables](#environment-variables])
-- [Need Help?](#need-help)
-- [Contributing](#contributing)
 
 ## What is Superinsight?
 
