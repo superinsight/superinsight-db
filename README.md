@@ -34,10 +34,12 @@ docker run -v myhostpath/db:/db --name superinsight-db-standalone -p 5432:5432 -
 ```
 
 ## Environment Variables
-Variable 					| Usage														 	| Default
---------------------------- | ------------------------------------------------------------ 	| --------
-SUPERINSIGHT_USER 			| The username of the database super user						| admin
-SUPERINSIGHT_PASSWORD 		| The password of the database super user 						| password
+Variable 					          | Usage														 	                                      | Default
+--------------------------- | ------------------------------------------------------------ 	          | --------
+SUPERINSIGHT_USER 			    | The username of the database super user						                      | admin
+SUPERINSIGHT_PASSWORD 		  | The password of the database super user 						                    | password
+ENV_IMAGE_TO_CAPTION 		    | Automatically index images to text caption for better search            | False
+ENV_IMAGE_TO_LABEL 		      | Automatically index images to image labels for better search  					| False
 
 
 ## Need Help?
