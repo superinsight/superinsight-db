@@ -7,18 +7,22 @@ import os
 import torch
 import hashlib
 from torchvision import datasets, transforms
+from torchvision.models import resnet152, ResNet152_Weights
 from ml.pipeline.imageToText import ImageToTextPipeline
 import numpy as np
 
 class EmbedPipeline:
 
-  context_embedding_dim = 2048
+  context_embedding_dim = 1000
   text_embedding_dim = 512
   nlp_model = SentenceTransformer(Environment.semantic_search_model)
-  vision_model = torch.hub.load(
-      'pytorch/vision:v0.10.0', 'resnet152', pretrained=True)
-  encoder = torch.nn.Sequential(*(list(vision_model.children())[:-1]))
-  encoder.eval()
+  vision_model = None
+
+  def getVisionEncoder(self):
+    if self.vision_model is None:
+      self.vision_model = resnet152(weights=ResNet152_Weights.DEFAULT)
+      self.vision_model.eval()
+    return self.vision_model
 
   def hasContextEmbedding(self, text):
     return validators.url(text)
@@ -79,6 +83,6 @@ class EmbedPipeline:
                                                batch_size=256)
       for inputs, labels, paths in dataloader:
           with torch.no_grad():
-              embedding = self.encoder(inputs).squeeze().numpy()
+              embedding = self.getVisionEncoder()(inputs).squeeze().numpy()
               return embedding
       return None
