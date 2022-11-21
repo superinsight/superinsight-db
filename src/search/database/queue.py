@@ -43,6 +43,8 @@ class DatabaseQueue:
 					item["embedding"] = json.dumps(text_embedding.tolist())
 					item["context_embedding"] = json.dumps(context_embedding.tolist())
 					item["label_embedding"] = json.dumps(label_embedding.tolist())
+					item["text_generated"] = text_generated
+					item["labels_generated"] = labels_generated
 					database = item["database"]
 					index_id = item["index_id"]
 				FaissPipeline(storage_location=storage_location).write(database,index_id, items)
