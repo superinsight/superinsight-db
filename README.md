@@ -25,12 +25,25 @@ For guidance on how to use Superinsight, see our [User Documentation](https://do
 
 The best way to get started with Superinsight is to build and run our docker image
 ```
-docker run --name superinsight-db-standalone -p 5432:5432 -e SUPERINSIGHT_USER=admin -e SUPERINSIGHT_PASSWORD=password superinsight/superinsight-db-standalone:latest
+docker run \
+--name superinsight-db-standalone \
+-p 5432:5432 \
+-e SUPERINSIGHT_USER=admin \
+-e SUPERINSIGHT_PASSWORD=password \
+superinsight/superinsight-db-standalone:latest
 ```
 
-To mount a volumn to the data directory located in the path `/db` use the -v
+To mount a volumn to the data directory located in the path use the -v argument.
 ```
-docker run -v myhostpath/db:/db --name superinsight-db-standalone -p 5432:5432 -e SUPERINSIGHT_USER=admin -e SUPERINSIGHT_PASSWORD=password superinsight/superinsight-db-standalone:latest
+docker run \
+--name superinsight-db-standalone \
+-p 5432:5432 \
+-v ~/db:/db \
+-v ~/db/superinsight/logs:/db/superinsight/logs \
+-v ~/db/superinsight/models:/db/superinsight/models \
+-e SUPERINSIGHT_USER=admin \
+-e SUPERINSIGHT_PASSWORD=password \
+superinsight/superinsight-db-standalone:latest
 ```
 
 ## Environment Variables
