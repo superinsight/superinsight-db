@@ -7,6 +7,11 @@ Superinsight Machine Learning Database is SQL/ML Database that uses Postgres SQL
 ./setup.sh
 ```
 
+## Activate the virtual environment
+```
+source .venv/bin/activate
+```
+
 ## Run the web server
 ```
 export POSTGRES_HOST="localhost" PGPORT="8432" SUPERINSIGHT_USER="admin" SUPERINSIGHT_PASSWORD="password" POSTGRES_DB="superinsight"
