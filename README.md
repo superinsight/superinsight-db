@@ -2,17 +2,6 @@
   <img src='docs/media/banner.png' width='80%'>
 </p>
 
----
-
-Superinsight is a Relational Database for Unstructured Data.
-
-- [What is Superinsight?](#what-is-superinsight)
-- [Docs](#docs)
-- [Get Started](#get-started)
-- [Environment Variables](#environment-variables])
-- [Need Help?](#need-help)
-- [Contributing](#contributing)
-
 ## What is Superinsight?
 
 Superinsight is a Relational Database for Unstructured Data, its main purpose is to provide a simple SQL interface to store and search unstructured data. Superinsight is build on top of PostgreSQL so you can take advantage of everything in PostgreSQL plus the ability to run machine learning operations using SQL statements.
@@ -38,9 +27,7 @@ To mount a volumn to the data directory located in the path use the -v argument.
 docker run \
 --name superinsight-db-standalone \
 -p 5432:5432 \
--v ~/db:/db \
--v ~/db/superinsight/logs:/db/superinsight/logs \
--v ~/db/superinsight/models:/db/superinsight/models \
+-v vol-superinsight:/db \
 -e SUPERINSIGHT_USER=admin \
 -e SUPERINSIGHT_PASSWORD=password \
 superinsight/superinsight-db-standalone:latest
