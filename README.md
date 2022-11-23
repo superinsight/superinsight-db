@@ -27,9 +27,7 @@ To mount a volumn to the data directory located in the path use the -v argument.
 docker run \
 --name superinsight-db-standalone \
 -p 5432:5432 \
--v ~/db:/db \
--v ~/db/superinsight/logs:/db/superinsight/logs \
--v ~/db/superinsight/models:/db/superinsight/models \
+-v vol-superinsight:/db \
 -e SUPERINSIGHT_USER=admin \
 -e SUPERINSIGHT_PASSWORD=password \
 superinsight/superinsight-db-standalone:latest
