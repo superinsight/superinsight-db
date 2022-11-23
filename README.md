@@ -14,19 +14,34 @@ For guidance on how to use Superinsight, see our [User Documentation](https://do
 
 The best way to get started with Superinsight is to build and run our docker image
 ```
-docker run --name superinsight-db-standalone -p 5432:5432 -e SUPERINSIGHT_USER=admin -e SUPERINSIGHT_PASSWORD=password superinsight/superinsight-db-standalone:latest
+docker run \
+--name superinsight-db-standalone \
+-p 5432:5432 \
+-e SUPERINSIGHT_USER=admin \
+-e SUPERINSIGHT_PASSWORD=password \
+superinsight/superinsight-db-standalone:latest
 ```
 
-To mount a volumn to the data directory located in the path `/db` use the -v
+To mount a volumn to the data directory located in the path use the -v argument.
 ```
-docker run -v myhostpath/db:/db --name superinsight-db-standalone -p 5432:5432 -e SUPERINSIGHT_USER=admin -e SUPERINSIGHT_PASSWORD=password superinsight/superinsight-db-standalone:latest
+docker run \
+--name superinsight-db-standalone \
+-p 5432:5432 \
+-v ~/db:/db \
+-v ~/db/superinsight/logs:/db/superinsight/logs \
+-v ~/db/superinsight/models:/db/superinsight/models \
+-e SUPERINSIGHT_USER=admin \
+-e SUPERINSIGHT_PASSWORD=password \
+superinsight/superinsight-db-standalone:latest
 ```
 
 ## Environment Variables
-Variable 					| Usage														 	| Default
---------------------------- | ------------------------------------------------------------ 	| --------
-SUPERINSIGHT_USER 			| The username of the database super user						| admin
-SUPERINSIGHT_PASSWORD 		| The password of the database super user 						| password
+Variable 					          | Usage														 	                                      | Default
+--------------------------- | ------------------------------------------------------------ 	          | --------
+SUPERINSIGHT_USER 			    | The username of the database super user						                      | admin
+SUPERINSIGHT_PASSWORD 		  | The password of the database super user 						                    | password
+ENV_IMAGE_TO_CAPTION 		    | Automatically index images to text caption for better search            | False
+ENV_IMAGE_TO_LABEL 		      | Automatically index images to image labels for better search  					| False
 
 
 ## Need Help?

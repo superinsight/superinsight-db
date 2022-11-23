@@ -7,6 +7,11 @@ docker build -t superinsight/superinsight-db-standalone-small:latest -f docker/s
 ```
 docker run --name superinsight-db-standalone-small -p 5432:5432 -e SUPERINSIGHT_USER=admin -e SUPERINSIGHT_PASSWORD=password superinsight/superinsight-db-standalone-small:latest
 
+### To run the newly build image 
+```
+docker run --name superinsight-db-standalone -p 5432:5432 -e SUPERINSIGHT_USER=admin -e SUPERINSIGHT_PASSWORD=password superinsight/superinsight-db-standalone:latest
+```
+
 ### Tag Docker Image
 ```
 docker tag superinsight/superinsight-db-standalone:latest superinsight/superinsight-db-standalone:x.x.x

@@ -198,14 +198,15 @@ RUN apt-get update \
     && apt-get install -y lsb-release \
     && apt-get install -y curl
 
-COPY ./src/proxy /usr/local/bin/superinsight/proxy
-RUN pip install -r /usr/local/bin/superinsight/proxy/requirements.txt
+ENV TORCH_HOME=/usr/local/bin/superinsight/cache/torch
 RUN chmod 777 /tmp
 # this 777 will be replaced by 700 at runtime (allows semi-arbitrary "--user" values)
 RUN mkdir -p "$MLDATA" && chown -R postgres:postgres "$MLDATA" && chmod -R 777 "$MLDATA"
 RUN mkdir -p "$LOGDATA" && chown -R postgres:postgres "$LOGDATA" && chmod -R 777 "$LOGDATA"
-
+RUN mkdir -p "$TORCH_HOME" && chown -R postgres:postgres "$TORCH_HOME" && chmod -R 777 "$TORCH_HOME"
 RUN pip install gunicorn
+COPY ./src/proxy /usr/local/bin/superinsight/proxy
+RUN pip install -r /usr/local/bin/superinsight/proxy/requirements.txt
 COPY ./src/server /usr/local/bin/superinsight/server
 RUN pip install -r /usr/local/bin/superinsight/server/requirements.txt
 COPY ./src/search /usr/local/bin/superinsight/search

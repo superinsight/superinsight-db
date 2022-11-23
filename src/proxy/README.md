@@ -7,6 +7,11 @@ Superinsight Machine Learning Database is SQL/ML Database that uses Postgres SQL
 ./setup.sh
 ```
 
+## Activate the virtual environment
+```
+source .venv/bin/activate
+```
+
 ## Run the proxy
 ```
 SUPERINSIGHT_USER=admin SUPERINSIGHT_PASSWORD=password ENV_HOST_MLDB="http://127.0.0.1:8081" python main.py

@@ -38,4 +38,4 @@ class TextGenerationPipeline:
       model_output = response.json()
       self.logger.info("Init ML.Pipeline.TextGeneration.__run_superinsight:model_output")
       self.logger.info(json.dumps({"model_output":model_output}))
-      return model_output
+      return model_output["output"]
