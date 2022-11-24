@@ -40,7 +40,6 @@ class FaissPipeline:
       for key in self.dataframes:
         self.logger.info("ml.pipeline.fass.__del__:saving-dataframe-key:{}".format(key))
         cached_data = self.dataframes[key]
-        self.logger.info(cached_data)
         df = pd.DataFrame.from_dict(cached_data[2])
         self.save(database=cached_data[0], index_id=cached_data[1], df = df)
       
