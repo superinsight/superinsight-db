@@ -1,0 +1,47 @@
+version: '3.4'
+services:
+  superinsight-db-server:
+    image: docker.io/superinsight/superinsight-db-singlehost-server:latest
+    networks:
+      - default
+    environment:
+      SUPERINSIGHT_USER: 'admin'
+      SUPERINSIGHT_PASSWORD: 'password'
+      ENV_SUPERINSIGHT_PREDICT_TRANSFORMERS_URL: 'http://superinsight-db-predict-transformers:8080'
+      ENV_SUPERINSIGHT_SEARCH_URL: 'http://superinsight-db-search:8080'
+      ENV_SUPERINSIGHT_SEARCH_INDEXING_URL: 'http://superinsight-db-search:8080'
+    restart: unless-stopped
+    ports:
+      - '5432:5432'
+    expose:
+      - '5432'
+  superinsight-db-search-indexer:
+    image: docker.io/superinsight/superinsight-db-singlehost-search:latest
+    networks:
+      - default
+    volumes:
+      - vol-superinsight:/db
+    environment:
+      ENV_RUN_AS: 'INDEXER'
+      ENV_SUPERINSIGHT_PREDICT_TRANSFORMERS_URL: 'http://superinsight-db-predict-transformers:8080'
+    restart: unless-stopped
+  superinsight-db-search:
+    image: docker.io/superinsight/superinsight-db-singlehost-search:latest
+    networks:
+      - default
+    volumes:
+      - vol-superinsight:/db
+    environment:
+      ENV_RUN_AS: 'SEARCH'
+      ENV_SUPERINSIGHT_PREDICT_TRANSFORMERS_URL: 'http://superinsight-db-predict-transformers:8080'
+    restart: unless-stopped
+  superinsight-db-predict-transformers:
+    image: docker.io/superinsight/superinsight-db-singlehost-predict-transformers:latest
+    networks:
+      - default
+    volumes:
+      - vol-superinsight:/db
+    environment:
+      TRANSFORMERS_CACHE: '/db/superinsight/models/cache/transformer/'
+volumes:
+  vol-superinsight:
