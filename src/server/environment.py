@@ -17,7 +17,7 @@ class Environment:
   default_model_text_generation = os.getenv("ENV_MODEL_TEXT_GENERATION", "facebook/opt-1.3b")
   default_model_translation = os.getenv("ENV_MODEL_TRANSLATION", "facebook/mbart-large-50-many-to-many-mmt")
   default_model_type_translation = os.getenv("ENV_MODEL_TYPE_TRANSLATION", "mbart") 
-  provider_api_url_superinsight = os.getenv("ENV_INFERENCE_URL", "http://0.0.0.0:8084")
+  provider_api_url_superinsight = os.getenv("ENV_SUPERINSIGHT_PREDICT_TRANSFORMERS_URL", "http://0.0.0.0:8084")
   provider_api_url_superinsight_recommender = os.getenv("ENV_SUPERINSIGHT_RECOMMENDER_URL", "http://localhost:8081")
   provider_api_url_superinsight_search = os.getenv("ENV_SUPERINSIGHT_SEARCH_URL", "http://localhost:8082")
   provider_api_url_superinsight_search_indexing = os.getenv("ENV_SUPERINSIGHT_SEARCH_INDEXING_URL", "http://localhost:8082")
