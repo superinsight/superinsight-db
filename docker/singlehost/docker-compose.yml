@@ -24,6 +24,8 @@ services:
     environment:
       ENV_RUN_AS: 'INDEXER'
       ENV_SUPERINSIGHT_PREDICT_TRANSFORMERS_URL: 'http://superinsight-db-predict-transformers:8080'
+      ENV_IMAGE_TO_CAPTION: 'False'
+      ENV_IMAGE_TO_LABEL: 'False'
     restart: unless-stopped
   superinsight-db-search:
     image: docker.io/superinsight/superinsight-db-singlehost-search:latest
