@@ -24,6 +24,8 @@ services:
     environment:
       ENV_RUN_AS: 'INDEXER'
       ENV_SUPERINSIGHT_PREDICT_TRANSFORMERS_URL: 'http://superinsight-db-predict-transformers:8080'
+      ENV_IMAGE_CLASSIFICAION_MODEL: 'google/vit-large-patch32-384'
+      ENV_IMAGE_TO_TEXT_MODEL: 'nlpconnect/vit-gpt2-image-captioning'
       ENV_IMAGE_TO_CAPTION: 'False'
       ENV_IMAGE_TO_LABEL: 'False'
     restart: unless-stopped
