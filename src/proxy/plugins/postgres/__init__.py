@@ -2,10 +2,9 @@ from database.sql.query_parser import QueryParser
 from database.sql.generator import SqlGenerator
 from database.sql.rewriter import SqlRewriter
 
-def rewrite_create_table(query, parser):
-    schema, table, columns, values, tokens = parser.getCreateParams()
-    query = SqlGenerator(schema_name=schema, table_name=table).runScriptCreateTableAndTrigger(query)
-    return query
+def rewrite_create_table(query, db_database, db_user):
+    rewriter = SqlRewriter(sql=query, db_database = db_database, db_user = db_user)
+    return rewriter.rewrite()
 
 def rewrite_predict_query(query, db_database, db_user):
     rewriter = SqlRewriter(sql=query, db_database = db_database, db_user = db_user)
@@ -27,7 +26,7 @@ def rewrite_query(query, context):
         if parser.isValid() == True:
             print("parser.getType():{}".format(parser.getType()))
             if str(parser.getType()) == 'CREATE':
-                query = rewrite_create_table(query, parser)
+                query = rewrite_create_table(query, db_database, db_user)
             if str(parser.getType()) == 'PREDICT':
                 query = rewrite_predict_query(query, db_database, db_user)
             if str(parser.getType()) == 'TRAIN':
