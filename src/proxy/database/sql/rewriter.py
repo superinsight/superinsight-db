@@ -29,6 +29,8 @@ class SqlRewriter:
   def rewrite(self):
     parser = QueryParser(self.sql)
     return_sql = parser.formattedQuery()
+    if str(parser.getType()) == 'CREATE':
+      return self.__rewriteQueryCreate(sql=return_sql)
     if str(parser.getType()) == 'TRAIN':
       return self.__rewriteQueryTrain(sql=return_sql)
     else:
@@ -38,7 +40,25 @@ class SqlRewriter:
         return_sql = return_sql.replace(sub_query, transformed_sub_query)
       return self.__rewriteQueryPredict(sql=return_sql)
 
-  def __rewriteQueryPredict(self, sql = None):
+  def __rewriteQueryCreate(self, sql = None):
+    if sql is None:
+      sql = self.sql
+    parser = QueryParser(sql)
+    if str(parser.getType()) != 'CREATE':
+      return sql
+    if parser.parsed.columns_dict is None:
+      schema, table, _, _, _ = parser.getCreateParams()
+      query = SqlGenerator(schema_name=schema, table_name=table).runScriptCreateTableAndTrigger(sql)
+      return query
+    create_statement, select_statement = parser.getCreateWithSelectStatement()
+    if QueryParser(select_statement).getType() == "PREDICT":
+      transformed_select_statement = self.__rewriteQueryPredict(sql = select_statement)
+      transformed_sql = "{}\n{}".format(create_statement, transformed_select_statement)
+      schema, table, _, _, _ = parser.getCreateParams()
+      sql = SqlGenerator(schema_name=schema, table_name=table).runScriptCreateTableAndTrigger(transformed_sql)
+    return sql
+
+  def __rewriteQueryPredict(self, sql = None, output_schema = None, output_table = None):
     if sql is None:
       sql = self.sql
     parser = QueryParser(sql)
