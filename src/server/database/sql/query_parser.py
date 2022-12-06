@@ -162,7 +162,8 @@ class QueryParser:
             if tables is not None and len(tables) > 0:
                 schema, table = self.parseTableName(tables[0])
             if self.parsed.columns_dict is not None: 
-                selects = self.parsed.columns_dict["select"]
+                if self.parsed.columns_dict.get("selects") is not None:
+                    selects = self.parsed.columns_dict["select"]
                 if self.parsed.columns_dict.get("join") is not None:
                     join = self.parsed.columns_dict["join"]
                 if self.parsed.columns_dict.get("order_by") is not None:
