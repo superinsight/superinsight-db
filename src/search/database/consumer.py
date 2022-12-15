@@ -19,11 +19,12 @@ class DatabaseConsumer:
   producer_combine = None
   storage_location = None
   faiss_pipeline = None
+  consumer = None
   logger = logging.getLogger(__name__)
   logger.setLevel(logging.INFO)
 
   def consume(self, topics=None, storage_location=StorageLocation.LOCAL_DISK):
-    consumer = KafkaConsumer(bootstrap_servers=Environment.kafka_bootstrap_servers, group_id=Environment.kafka_group_default, auto_offset_reset='earliest')
+    self.consumer = KafkaConsumer(bootstrap_servers=Environment.kafka_bootstrap_servers, group_id=Environment.kafka_group_default, auto_offset_reset='earliest')
     self.producer_conquer = KafkaProducer(bootstrap_servers=Environment.kafka_bootstrap_servers, key_serializer=str.encode,
                                    value_serializer=lambda v: json.dumps(v).encode('utf-8'))
     self.producer_combine = KafkaProducer(bootstrap_servers=Environment.kafka_bootstrap_servers, key_serializer=str.encode,
@@ -35,7 +36,7 @@ class DatabaseConsumer:
     try:
       print("subscribe: ", topics)
       self.logger.info("subscribe: ", topics)
-      consumer.subscribe(topics)
+      self.consumer.subscribe(topics)
       for msg in self.consumer:
         self.logger.info("consumed: ", msg.topic, msg.partition, msg.offset,
                           msg.key, msg.value, msg.timestamp)
@@ -46,7 +47,7 @@ class DatabaseConsumer:
         if (msg.topic == Environment.kafka_topic_combine):
           self.combine(msg.value)
     finally:
-      consumer.close()
+      self.consumer.close()
 
   def divide(self, message):
     start_time = time.time()

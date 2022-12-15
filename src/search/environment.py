@@ -4,9 +4,9 @@ class Environment:
 
   default_storage = os.getenv("ENV_STORAGE", "/db/superinsight/models/private/semantic-search")
   kafka_topic_to_consume = str(os.getenv("ENV_KAFKA_TOPIC_TO_CONSUME", "none"))
-  kafka_topic_divide = str(os.getenv("ENV_KAFKA_TOPIC_DIVIDE", "superinsight_ml_search_divide_V0911"))
-  kafka_topic_conquer = str(os.getenv("ENV_KAFKA_TOPIC_CONQUER", "superinsight_ml_search_conquer_V0911"))
-  kafka_topic_combine = str(os.getenv("ENV_KAFKA_TOPIC_TO_COMBINE", "superinsight_ml_search_combine_V0911"))
+  kafka_topic_divide = str(os.getenv("ENV_KAFKA_TOPIC_DIVIDE", "ml_search_divide"))
+  kafka_topic_conquer = str(os.getenv("ENV_KAFKA_TOPIC_CONQUER", "ml_search_conquer"))
+  kafka_topic_combine = str(os.getenv("ENV_KAFKA_TOPIC_TO_COMBINE", "ml_search_combine"))
   kafka_bootstrap_servers = str(os.getenv("ENV_KAFKA_BOOTSTRAP_SERVERS", "localhost:9092"))
   kafka_group_default = str(os.getenv("ENV_KAFKA_GROUP_DEFAULT", "v30"))
   kafka_group_id_local_disk = str(os.getenv("ENV_KAFKA_GROUP_ID_LOCAL_DISK", "network-drive"))
