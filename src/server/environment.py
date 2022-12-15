@@ -30,7 +30,7 @@ class Environment:
   mldb_schema_name = os.getenv("ENV_MLDB_SCHEMA", "mldb")
   model_schema_name = os.getenv("ENV_MODEL_SCHEMA", "model")
   storage_model_private_recommender = os.getenv("ENV_STORAGE_MODEL_PRIVATE_RECOMMENDER", "/db/superinsight/models/private/semantic-search")
-  kafka_topic_ml_search = str(os.getenv("ENV_KAFKA_TOPIC_ML_SEARCH", "superinsight_ml_search_divide_V0911"))
+  kafka_topic_ml_search = str(os.getenv("ENV_KAFKA_TOPIC_ML_SEARCH", "ml_search_divide"))
   kafka_topic_ml_recommender_train = str(os.getenv("ENV_KAFKA_TOPIC_ML_RECOMMENDER_TRAIN", "superinsight_ml_recommender_train_v0"))
   kafka_bootstrap_servers = str(os.getenv("ENV_KAFKA_BOOTSTRAP_SERVERS", "localhost:9092"))
   kafka_enabled = os.getenv("ENV_KAFKA_ENABLED", "False") == "True"
