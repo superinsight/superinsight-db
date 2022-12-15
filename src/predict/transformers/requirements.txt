@@ -4,7 +4,7 @@ sentencepiece==0.1.96
 requests==2.27.1
 fastapi==0.75.1
 uvicorn==0.17.6
-protobuf==3.20.1
+protobuf==3.20.2
 google-cloud-storage==2.3.0
 validators==0.20.0
 Pillow==9.3.0

@@ -157,6 +157,25 @@ class QueryParser:
         else:
             return None, None
 
+    def getCreateWithSelectStatement(self):
+        try:
+            is_select_query = False
+            create_tokens = []
+            select_tokens = []
+            for token in self.parsed.tokens:
+                if token.previous_token is not None and token.previous_token.previous_token is not None and token.previous_token.previous_token.previous_token is not None and token.previous_token.value.upper() == "AS" and token.previous_token.previous_token.previous_token.value.upper() == "TABLE":
+                    is_select_query = True
+                if is_select_query is True:
+                    select_tokens.append(token.value)
+                else:
+                    create_tokens.append(token.value)
+            create_statement = " ".join(create_tokens).replace(" ,",",")
+            select_statement = " ".join(select_tokens).replace(" ,",",")
+            return create_statement, select_statement
+        except:
+            print("Unexpected error:", sys.exc_info()[0])
+            return None, None
+
     def getJoinStatements(self, only_include_tokens = [], exclude_tokens = []):
         join_statements = ""
         statement = ""
