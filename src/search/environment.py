@@ -12,6 +12,9 @@ class Environment:
     kafka_topic_combine = str(
         os.getenv("ENV_KAFKA_TOPIC_TO_COMBINE", "ml_search_combine")
     )
+    kafka_topic_conquer_partitions = int(
+        os.getenv("ENV_KAFKA_TOPIC_CONQUER_PARTITIONS", "10")
+    )
     kafka_bootstrap_servers = str(
         os.getenv("ENV_KAFKA_BOOTSTRAP_SERVERS", "localhost:9092")
     )
