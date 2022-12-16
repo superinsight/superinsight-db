@@ -11,7 +11,9 @@ class DatabaseKafkaAdmin:
     logger.setLevel(logging.INFO)
 
     def create_topic(topic, num_of_partitions=1):
-        topics = KafkaConsumer().topics()
+        topics = KafkaConsumer(
+            bootstrap_servers=Environment.kafka_bootstrap_servers
+        ).topics()
         if topic in topics:
             return True
         admin_client = KafkaAdminClient(
