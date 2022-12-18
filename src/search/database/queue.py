@@ -3,7 +3,7 @@ import glob
 import uuid
 from environment import Environment
 import json
-import logging
+from common.logger import CommonLogger
 from common.storage_location import StorageLocation
 from ml.pipeline.embed import EmbedPipeline
 from ml.pipeline.faiss import FaissPipeline
@@ -12,8 +12,7 @@ from ml.pipeline.faiss import FaissPipeline
 class DatabaseQueue:
 
     faiss_pipeline = None
-    logger = logging.getLogger(Environment.logger_name)
-    logger.setLevel(logging.INFO)
+    logger = CommonLogger()
 
     def enqueue(self, database, index_id, items):
         directory = "{}/.processing/{}/{}".format(

@@ -1,16 +1,15 @@
 import os
 import time
 import datetime
-import logging
 from ml.pipeline.faiss import FaissPipeline
 import uuid
 from environment import Environment
 import json
-import logging
 from kafka import KafkaConsumer
 from kafka import KafkaProducer
 from common.storage_location import StorageLocation
 from ml.pipeline.embed import EmbedPipeline
+from common.logger import CommonLogger
 
 
 class DatabaseConsumer:
@@ -20,8 +19,7 @@ class DatabaseConsumer:
     storage_location = None
     faiss_pipeline = None
     consumer = None
-    logger = logging.getLogger(Environment.logger_name)
-    logger.setLevel(logging.INFO)
+    logger = CommonLogger()
 
     def consume(self, topics=None, storage_location=StorageLocation.LOCAL_DISK):
         self.consumer = KafkaConsumer(
