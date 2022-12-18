@@ -2,10 +2,14 @@ import validators
 import requests
 import json
 from environment import Environment
+from common.logger import CommonLogger
 
 
 class ImageToTextPipeline:
+    logger = CommonLogger()
+
     def generate(self, text):
+        self.logger.info("ImageToTextPipeline.generate", text)
         if validators.url(text):
             texts = []
             image_text = self.__imageToText(image_url=text)
@@ -24,6 +28,7 @@ class ImageToTextPipeline:
             return (None, None)
 
     def __imageToText(self, image_url):
+        self.logger.info("ImageToTextPipeline.__imageToText", image_url)
         if Environment.index_image_to_caption is False:
             return None
         payload = json.dumps(
@@ -39,6 +44,7 @@ class ImageToTextPipeline:
         return response.json()
 
     def __imageToTags(self, image_url):
+        self.logger.info("ImageToTextPipeline.__imageToTags", image_url)
         if Environment.index_image_to_label is False:
             return None
         payload = json.dumps(
