@@ -45,7 +45,6 @@ class DatabaseConsumer:
         self.storage_location = storage_location
         self.faiss_pipeline = FaissPipeline(storage_location=self.storage_location)
         try:
-            self.logger.info("subscribe: ", topics)
             self.consumer.subscribe(topics)
             for msg in self.consumer:
                 self.logger.info(
