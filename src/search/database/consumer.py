@@ -20,7 +20,7 @@ class DatabaseConsumer:
     storage_location = None
     faiss_pipeline = None
     consumer = None
-    logger = logging.getLogger(__name__)
+    logger = logging.getLogger(Environment.logger_name)
     logger.setLevel(logging.INFO)
 
     def consume(self, topics=None, storage_location=StorageLocation.LOCAL_DISK):
@@ -47,7 +47,6 @@ class DatabaseConsumer:
         self.storage_location = storage_location
         self.faiss_pipeline = FaissPipeline(storage_location=self.storage_location)
         try:
-            print("subscribe: ", topics)
             self.logger.info("subscribe: ", topics)
             self.consumer.subscribe(topics)
             for msg in self.consumer:

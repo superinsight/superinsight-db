@@ -1,4 +1,3 @@
-import logging
 import pandas as pd
 import numpy
 import copy
@@ -17,11 +16,12 @@ from environment import Environment
 import time
 import datetime
 import faiss
+from common.logger import CommonLogger
 
 
 class FaissPipeline:
 
-    logger = None
+    logger = CommonLogger()
     key = None
     storage = Environment.default_storage
     storage_location = None
@@ -30,16 +30,10 @@ class FaissPipeline:
 
     def __init__(
         self,
-        logger=None,
-        handler=None,
         max_records=None,
         storage_location=StorageLocation.MEMORY_CACHE,
     ):
-        self.logger = logger or logging.getLogger(__name__)
-        self.logger.setLevel(logging.INFO)
         self.storage_location = storage_location
-        if handler is not None:
-            self.logger.addHandler(handler)
         self.logger.info("ml.pipeline.fass.__init__")
         if max_records is not None:
             self.max_records = max_records
@@ -159,13 +153,10 @@ class FaissPipeline:
                 key = index_id
             else:
                 if key != index_id:
-                    error_message = (
-                        "Items in dataset has more than one index:{}".format(
-                            json.dumps(items)
-                        )
+                    warning = "Items in dataset has more than one index:{}".format(
+                        json.dumps(items)
                     )
-                    self.logger.error(error_message)
-                    raise Exception(error_message)
+                    self.logger.warning(warning)
         return True
 
     def get(self, database, index_id):
@@ -360,7 +351,7 @@ class FaissPipeline:
                 ids = json.loads(primary_key_values.replace("'", '"'))
                 ds = ds.filter(lambda x: x["primary_key_value"] in ids)
             except:
-                self.logger.error(
+                self.logger.warning(
                     "Error in parsing out primary_key_values".format(primary_key_values)
                 )
         (

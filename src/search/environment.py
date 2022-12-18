@@ -6,6 +6,7 @@ class Environment:
     default_storage = os.getenv(
         "ENV_STORAGE", "/db/superinsight/models/private/semantic-search"
     )
+    logger_name = os.getenv("ENV_LOGGER_NAME", "SEARCH_LOGS")
     kafka_topic_to_consume = str(os.getenv("ENV_KAFKA_TOPIC_TO_CONSUME", "none"))
     kafka_topic_divide = str(os.getenv("ENV_KAFKA_TOPIC_DIVIDE", "ml_search_divide"))
     kafka_topic_conquer = str(os.getenv("ENV_KAFKA_TOPIC_CONQUER", "ml_search_conquer"))

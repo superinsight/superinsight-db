@@ -12,7 +12,7 @@ from ml.pipeline.faiss import FaissPipeline
 class DatabaseQueue:
 
     faiss_pipeline = None
-    logger = logging.getLogger(__name__)
+    logger = logging.getLogger(Environment.logger_name)
     logger.setLevel(logging.INFO)
 
     def enqueue(self, database, index_id, items):

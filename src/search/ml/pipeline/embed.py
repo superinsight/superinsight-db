@@ -10,6 +10,7 @@ from torchvision import datasets, transforms
 from torchvision.models import resnet152, ResNet152_Weights
 from ml.pipeline.imageToText import ImageToTextPipeline
 import numpy as np
+from common.logger import CommonLogger
 
 
 class EmbedPipeline:
@@ -18,17 +19,21 @@ class EmbedPipeline:
     text_embedding_dim = 512
     nlp_model = SentenceTransformer(Environment.semantic_search_model)
     vision_model = None
+    logger = CommonLogger()
 
     def getVisionEncoder(self):
+        self.logger.info("EmbedPipeline.getVisionEncoder")
         if self.vision_model is None:
             self.vision_model = resnet152(weights=ResNet152_Weights.DEFAULT)
             self.vision_model.eval()
         return self.vision_model
 
     def hasContextEmbedding(self, text):
+        self.logger.info("EmbedPipeline.encode:", text)
         return validators.url(text)
 
     def encode(self, text):
+        self.logger.info("EmbedPipeline.encode:", text)
         if validators.url(text):
             (texts, labels) = ImageToTextPipeline().generate(text)
             text_generated = ""
@@ -69,7 +74,8 @@ class EmbedPipeline:
                         localFile.write(response.read())
                     return self.__getImageEmbeddings(image_dir)
             return np.zeros(self.context_embedding_dim)
-        except:
+        except Exception as e:
+            self.logger.error(e)
             return np.zeros(self.context_embedding_dim)
 
     def __getImageEmbeddings(self, image_path):
