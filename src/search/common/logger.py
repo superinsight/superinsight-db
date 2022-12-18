@@ -21,13 +21,13 @@ class CommonLogger:
             self.logger.addHandler(stream_handler)
 
     def info(self, *messages):
-        self.logger.info(" ".join(messages))
+        self.logger.info(" ".join(str(m) for m in messages))
 
     def debug(self, *messages):
-        self.logger.debug(" ".join(messages))
+        self.logger.debug(" ".join(str(m) for m in messages))
 
     def warning(self, *messages):
-        self.logger.warning(" ".join(messages))
+        self.logger.warning(" ".join(str(m) for m in messages))
 
     def error(self, err):
         self.logger.error("*" * 100)
