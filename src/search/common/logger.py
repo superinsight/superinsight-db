@@ -12,7 +12,7 @@ class CommonLogger:
         self.logger.setLevel(logging.INFO)
         if handler is not None:
             self.logger.addHandler(handler)
-        else:
+        elif not self.logger.handlers:
             stream_handler = logging.StreamHandler()
             formatter = logging.Formatter(
                 "%(asctime)s - %(name)s - %(levelname)s - %(message)s"

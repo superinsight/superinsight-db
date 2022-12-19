@@ -45,7 +45,10 @@ def main():
                 Environment.kafka_topic_conquer,
                 Environment.kafka_topic_conquer_partitions,
             )
-            DatabaseKafkaAdmin.create_topic(Environment.kafka_topic_combine)
+            DatabaseKafkaAdmin.create_topic(
+                Environment.kafka_topic_combine,
+                Environment.kafka_topic_combine_partitions,
+            )
             DatabaseConsumer().consume(
                 topics=topics, storage_location=StorageLocation.LOCAL_DISK
             )

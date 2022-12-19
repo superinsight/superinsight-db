@@ -79,7 +79,7 @@ class DatabaseConsumer:
         for item in items:
             future_embed = self.producer_conquer.send(
                 Environment.kafka_topic_conquer,
-                key=item["index_id"],
+                key=batch_id,
                 value={
                     "_id": item["_id"],
                     "source": batch_id,

@@ -29,7 +29,6 @@ class EmbedPipeline:
         return self.vision_model
 
     def hasContextEmbedding(self, text):
-        self.logger.info("EmbedPipeline.encode:", text)
         return validators.url(text)
 
     def encode(self, text):
