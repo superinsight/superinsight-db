@@ -78,13 +78,6 @@ class TableLogger:
             )
         )
         changes = []
-        self.logger.info(
-            self.postgres_user,
-            self.postgres_password,
-            self.postgres_host,
-            self.postgres_port,
-            self.postgres_database,
-        )
         conn = psycopg2.connect(
             user=self.postgres_user,
             password=self.postgres_password,
