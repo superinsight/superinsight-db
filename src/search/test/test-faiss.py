@@ -42,7 +42,7 @@ class TestFaiss(unittest.TestCase):
       "operation": "INSERT",
       "embedding": "[-0.025350339710712433, 0.009165766648948193, -0.0006264745607040823, -0.00014192378148436546, -0.030956819653511047, 0.02091195434331894, 0.02735385298728943, -0.06803916394710541, 0.054914478212594986, 0.02296779677271843, 0.02627076394855976, -0.07965370267629623, -0.038620054721832275, 0.08544053882360458, 0.020159179344773293, -0.059880081564188004, -0.03855511546134949, -0.06628689914941788, 0.08936797827482224, 0.021265501156449318, 0.06232370063662529, 0.006597235798835754, 0.06961575150489807, 0.0008275339496321976, -0.004794718697667122, 0.041804589331150055, 0.03791398927569389, -0.0026456897612661123, 0.01810452714562416, 0.030520044267177582, 0.021787265315651894, 0.07535512745380402, -0.014090200886130333, -0.011297633871436119, -0.03175598010420799, 0.05822481960058212, -0.01073022186756134, 0.0022584404796361923, -0.04732263460755348, -0.020834827795624733, 0.001855822280049324, -0.04938624054193497, 0.00923387985676527, -0.04318978264927864, 0.03306901827454567, -0.010411680676043034, 0.062476225197315216, -0.0022835079580545425, 0.09953214228153229, 0.02627718448638916, -0.034765638411045074, 0.020478254184126854, -0.03895340487360954, -0.07134413719177246, -0.0025695948861539364, 0.03004704788327217, -0.022032007575035095, 0.0009484512847848237, -0.036795616149902344, 0.04311076179146767, -0.012904777191579342, -0.12729333341121674, 0.11912243813276291, -0.021490387618541718, -0.026747671887278557, 0.03905680403113365, 0.03626527637243271, -0.04780321568250656, -0.006377261132001877, -0.0157945454120636, -0.007610429544001818, -0.01179552637040615, 0.012570464052259922, -0.006321655120700598, 0.0162845216691494, 0.06775408983230591, 0.03155352920293808, 0.02987467683851719, -0.07878874242305756, 0.007848487235605717, 0.004623573739081621, -0.08048205077648163, -0.06637931615114212, -0.03392279893159866, 0.010499496012926102, 0.009722955524921417, -0.026035841554403305, -0.024597030133008957, -0.001332813990302384, 0.12744446098804474, 0.023902645334601402, 0.0013230160111561418, -0.01100431103259325, -0.03368606045842171, -0.017148882150650024, 0.12960205972194672, 0.008032643236219883, -0.04772578552365303, 0.016571661457419395, -0.002062754472717643, -0.02795143611729145, -0.03330180421471596, 0.06889951229095459, 0.03919132798910141, 0.014985649846494198, 0.031301386654376984, -0.041840504854917526, -0.010349608026444912, 0.006976919714361429, -0.017934327945113182, -0.01879088208079338, 0.09486278146505356, -0.046666961163282394, -0.011422705836594105, 0.023057322949171066, -0.05977264791727066, -0.032518159598112106, -0.0730930045247078, 0.033232856541872025, 0.04154234379529953, 0.024180961772799492, -0.03979207202792168, 0.019869299605488777, -0.06428758054971695, 0.00014848809223622084, 0.06927426159381866, -0.01744372956454754, -0.03232137858867645, 0.010139311663806438, 0.010764987207949162, -0.000354661577148363, 0.009677616879343987, -0.00010055303573608398, -0.026044290512800217, -0.003403868991881609, -0.025455128401517868, -0.009011389687657356, 0.009604685939848423, -0.0259095411747694, -0.06087994575500488, 0.05458864942193031, 0.03229609131813049, -0.03402569890022278, 0.006174328736960888, -0.04318908601999283, 0.009532174095511436, -0.01679025962948799, 0.024154575541615486, -0.0036288858391344547, 0.009463130496442318, -0.030154727399349213, 0.02941819280385971, -0.04475746303796768, 0.08053328841924667, 0.017085282132029533, 0.013355645351111889, -0.013747288845479488, -0.004914766177535057, 0.007362760603427887, -0.01341799646615982, 0.0016073365695774555, 0.004661846440285444, -0.029869364574551582, -0.02082548290491104, 0.022989893332123756, 0.07107002288103104, 0.03939391300082207, -0.05158710107207298, -0.006306431256234646, -0.04745692387223244, -0.08231555670499802, 0.08149892836809158, -0.041917670518159866, 0.006026771850883961, 0.0563112236559391, 0.004195414017885923, -0.0028029035311192274, -0.03920431807637215, -0.059970930218696594, -0.01771600730717182, 0.08797883987426758, 0.057788580656051636, -0.05002567917108536, -0.0032051156740635633, -0.04362952709197998, 0.03375811502337456, -0.0007433619466610253, -0.03589877858757973, -0.03372269868850708, -0.023815546184778214, -0.028440119698643684, -0.06289501488208771, 0.07278373092412949, 0.004906866233795881, -0.05705352500081062, -0.07881364971399307, -0.007664320059120655, -0.041638102382421494, 0.042285993695259094, 0.02084294520318508, 0.0017422422533854842, -0.0807543620467186, -0.03195181116461754, -0.05777733772993088, 0.04002244025468826, -0.061686813831329346, -0.01573115587234497, 0.027662524953484535, 0.03186466544866562, -0.024280037730932236, 0.021198222413659096, -0.04776192456483841, 0.03384361043572426, 0.07914907485246658, 0.0033763626124709845, -0.025600075721740723, 0.049811068922281265, -0.01097045000642538, 0.0031577039044350386, -0.06185274198651314, 0.04697667062282562, -0.014856209978461266, 0.05845724418759346, -0.03862161934375763, -0.04802924767136574, -0.06251101940870285, 0.01072779856622219, -0.0316455103456974, 0.005550968926399946, 0.0040080612525343895, -0.07015074044466019, -0.013551166281104088, -0.083729088306427, 0.05603742599487305, 0.0170873012393713, -0.0009168402757495642, -0.04056355729699135, -0.06574088335037231, 0.03494827449321747, 0.08486294746398926, 0.017433028668165207, -0.0103799719363451, 0.0584215447306633, 0.008454814553260803, 0.012542543932795525, 0.037587862461805344, -0.06285664439201355, -0.007125413976609707, -0.018970387056469917, 0.07559771090745926, -0.0035595588851720095, 0.02057340182363987, 0.00673629017546773, 0.01521683856844902, 0.02534247376024723, 0.02551700361073017, -0.015121782198548317, 0.0037133919540792704, -0.020276756957173347, 0.019231995567679405, 0.008902573958039284, 0.036219943314790726, 0.042221538722515106, 0.009549037553369999, 0.026494920253753662, -0.00032822974026203156, -0.004734784364700317, -0.005654460284858942, 0.030147401615977287, 0.013918347656726837, -0.023150237277150154, 0.009564965032041073, -0.02870294451713562, -0.02420620806515217, 0.08259156346321106, 0.052266694605350494, -0.1418173611164093, -0.005959768779575825, 0.002054674783721566, 0.009784961119294167, -0.08477819710969925, 0.027176063507795334, 0.009643244557082653, -0.06309492141008377, 0.0007679051486775279, -0.020630013197660446, -0.015256935730576515, -0.036781225353479385, -0.018605496734380722, 0.027649305760860443, -0.0332111157476902, 0.06011182814836502, -0.004960753954946995, 0.013277022168040276, 0.015363155864179134, -0.012153544463217258, -0.03819853812456131, -0.04509003832936287, -0.03969031572341919, -0.0443432480096817, -0.07290326803922653, -0.009673883207142353, 0.023106703534722328, -0.00422352459281683, 0.03522641211748123, 0.026980677619576454, 0.027817102149128914, 0.05633028969168663, -0.05363903194665909, 0.009423722513020039, -0.010057268664240837, 0.049000076949596405, -0.014649203047156334, 0.010207927785813808, 0.009972223080694675, 0.012468959204852581, 0.03997963294386864, 0.011924698017537594, 0.017789285629987717, 0.007779690902680159, 0.028552353382110596, -0.06019246578216553, -0.01999778300523758, -0.01894681341946125, -0.02929839864373207, 0.014355216175317764, -0.014448162168264389, 0.018311019986867905, -0.0693851038813591, -0.028322553262114525, 0.004002910107374191, 0.041862379759550095, -0.009571019560098648, -0.026607858017086983, 0.04616279900074005, 0.023634610697627068, 0.0021956567652523518, 0.010221131145954132, 0.007726387120783329, -0.022481996566057205, 0.0013898378238081932, -0.06358461827039719, 0.00611910130828619, -0.04201974347233772, 0.027144329622387886, -0.002809058176353574, -0.06527898460626602, -0.06613943725824356, -0.007859505712985992, -0.006027377676218748, 0.040220681577920914, -0.028469856828451157, -0.08401988446712494, -0.005979841575026512, -0.027243325486779213, -0.03710039332509041, 0.028989441692829132, 0.029279526323080063, 0.021773546934127808, -0.015131935477256775, 0.0014618380228057504, -0.02040960267186165, -0.019077081233263016, -0.053764041513204575, 0.09432864189147949, 0.027168022468686104, -0.029766477644443512, 0.0726076290011406, 0.00802488811314106, -0.0034431612584739923, 0.02291504666209221, 0.10567183047533035, -0.026853490620851517, -0.04111657664179802, -0.061685312539339066, -0.02791202999651432, 0.03705142065882683, -0.009012069553136826, -0.07665859162807465, -0.028496121987700462, 0.027671370655298233, 0.057488132268190384, -0.015345015563070774, 0.08182882517576218, 0.0481283999979496, -0.02916460484266281, -0.002689217682927847, 0.04317944869399071, -0.04662369191646576, -0.0591292642056942, 0.024318190291523933, 0.009304706007242203, 0.029577260836958885, 0.044868819415569305, -0.02310989238321781, 0.03462214395403862, 0.06550078839063644, -0.05705857649445534, 0.07593756169080734, -0.01748034358024597, -0.0006825475720688701, -0.03129380941390991, -0.033997658640146255, -0.004045567009598017, -0.0437588095664978, -0.054051723331213, -0.01639130525290966, 0.031530819833278656, 0.04151527211070061, -0.01769593358039856, 0.0781121477484703, -0.025698626413941383, -0.06400103121995926, -0.051556408405303955, 0.040537673979997635, 0.06775622069835663, -0.01306360587477684, -0.019221235066652298, 0.0015773848863318563, 0.013420325703918934, 0.009130853228271008, -0.021379195153713226, 0.015235958620905876, 0.02080788090825081, -0.045302338898181915, -0.07851286977529526, 0.008780550211668015, 0.040160588920116425, -0.08516570925712585, -0.06385451555252075, -0.018522856757044792, -0.013470691628754139, 0.008074654266238213, -0.01093566045165062, 0.0019082510843873024, 0.018233556300401688, 0.0012043517781421542, 0.024847641587257385, -0.020541423931717873, 0.049832697957754135, -0.05008649080991745, -0.09353937953710556, 0.0029378063045442104, 0.07552053034305573, -0.08470243960618973, 0.02076944336295128, -0.028148947283625603, -0.06348440796136856, -0.008892491459846497, -0.027830401435494423, -0.016522878780961037, -0.06852956116199493, 0.019845260307192802, 0.03236308693885803, -0.027065880596637726, 0.03877876698970795, 0.011864555068314075, 0.02959899976849556, 0.10070692747831345, -0.06485507637262344, 0.04265419393777847, -0.02219674549996853, -0.022493993863463402, -0.02544822171330452, -0.036315202713012695, -0.026599576696753502, 0.02838517539203167, 0.007550570648163557, 0.024882735684514046, -0.04751697555184364, -0.010264179669320583, 0.020341139286756516, -0.021020708605647087, -0.015175959095358849, 0.03760053589940071, 0.02614527940750122, -0.059096939861774445, -0.015564716421067715, 0.03163639083504677, -0.08827415108680725, -0.008687141351401806, 0.005772607401013374, 0.08787653595209122, -0.051078058779239655, 0.010921495966613293, 0.03629034385085106, -0.08129670470952988, -0.030013272538781166, -0.006196584552526474, 0.002562542911618948, 0.01059406902641058, 0.0068583921529352665, -0.011229697614908218, -0.00940741691738367, 0.018259402364492416, -0.06140054762363434, -0.0018635938176885247, 0.04408460482954979, 0.03342297300696373, -0.06906727701425552, -0.01914665848016739, -0.08791302144527435, 0.04807685688138008, 0.054572053253650665, 0.10558120161294937, 0.02700640633702278, 0.045585211366415024, 0.027159640565514565, 0.043523434549570084, 0.048843298107385635, 0.012135758996009827, 0.004531622398644686]"
     }]"""
-    
+
     JSON_IMAGE_ITEMS = """
     [
       {
@@ -77,143 +77,217 @@ class TestFaiss(unittest.TestCase):
       }   
     ]
     """
-    
+
     def test_normal_inserts(self):
-      items = json.loads(self.JSON_TEXT_ITEMS)
-      df = FaissPipeline().write("unit_test","test_normal_inserts", items)
-      print(df.head)
-      self.assertEqual(len(items), len(df))
+        items = json.loads(self.JSON_TEXT_ITEMS)
+        df = FaissPipeline().write("unit_test", "test_normal_inserts", items)
+        print(df.head)
+        self.assertEqual(len(items), len(df))
 
     def test_remove(self):
-      items = json.loads(self.JSON_TEXT_ITEMS)
-      items[2]["primary_key_value"] = "1"
-      items[2]["operation"] = "DELETE"
-      df = FaissPipeline().write("unit_test","test_remove", items)
-      print(df.head)
-      self.assertEqual(len(items)-2, len(df))
+        items = json.loads(self.JSON_TEXT_ITEMS)
+        items[2]["primary_key_value"] = "1"
+        items[2]["operation"] = "DELETE"
+        df = FaissPipeline().write("unit_test", "test_remove", items)
+        print(df.head)
+        self.assertEqual(len(items) - 2, len(df))
 
     def test_dup_inserts_by_id(self):
-      items = json.loads(self.JSON_TEXT_ITEMS)
-      items[2]["_id"] = 1
-      items[2]["operation"] = "INSERT"
-      df = FaissPipeline().write("unit_test", "test_dup_inserts_by_id", items)
-      print(df.head)
-      self.assertEqual(len(items)-1, len(df))
+        items = json.loads(self.JSON_TEXT_ITEMS)
+        items[2]["_id"] = 1
+        items[2]["operation"] = "INSERT"
+        df = FaissPipeline().write("unit_test", "test_dup_inserts_by_id", items)
+        print(df.head)
+        self.assertEqual(len(items) - 1, len(df))
 
     def test_dup_inserts_by_primary_key_value(self):
-      items = json.loads(self.JSON_TEXT_ITEMS)
-      items[2]["primary_key_value"] = "1"
-      items[2]["operation"] = "INSERT"
-      df = FaissPipeline().write("unit_test", "test_dup_inserts_by_primary_key_value", items)
-      print(df.head)
-      self.assertEqual(len(items)-1, len(df))
-      self.assertEqual(df["column_value"][2], items[2]["column_value"])
+        items = json.loads(self.JSON_TEXT_ITEMS)
+        items[2]["primary_key_value"] = "1"
+        items[2]["operation"] = "INSERT"
+        df = FaissPipeline().write(
+            "unit_test", "test_dup_inserts_by_primary_key_value", items
+        )
+        print(df.head)
+        self.assertEqual(len(items) - 1, len(df))
+        self.assertEqual(df["column_value"][2], items[2]["column_value"])
+
     def test_duplicates_save_storage(self):
-      items = json.loads(self.JSON_TEXT_ITEMS)
-      df = FaissPipeline(storage_location=StorageLocation.LOCAL_DISK).write("unit_test","test_normal_inserts", items)
-      print(df.head)
-      df = FaissPipeline(storage_location=StorageLocation.LOCAL_DISK).write("unit_test","test_normal_inserts", items)
-      print(df.head)
-      self.assertEqual(len(items), len(df))
+        items = json.loads(self.JSON_TEXT_ITEMS)
+        df = FaissPipeline(storage_location=StorageLocation.LOCAL_DISK).write(
+            "unit_test", "test_normal_inserts", items
+        )
+        print(df.head)
+        df = FaissPipeline(storage_location=StorageLocation.LOCAL_DISK).write(
+            "unit_test", "test_normal_inserts", items
+        )
+        print(df.head)
+        self.assertEqual(len(items), len(df))
 
     def test_text_index_search(self):
-      items = json.loads(self.JSON_TEXT_ITEMS)
-      context = items[0]["column_value"]
-      pipeline = FaissPipeline(storage_location=StorageLocation.MEMORY_CACHE)
-      for item in items:
-        text_embedding, context_embedding, label_embedding, text_generated, labels_generated = EmbedPipeline().encode(text = item["column_value"])
-        item["embedding"] = json.dumps(text_embedding.tolist())
-        item["context_embedding"] = json.dumps(context_embedding.tolist())
-        item["label_embedding"] = json.dumps(label_embedding.tolist())
-      df = pipeline.write("unit_test","test_text_index_search", items)
-      print(df.head)
-      predictions = pipeline.search(database="unit_test", index_id="test_text_index_search", context=context, limit=10, primary_key_values=None)
-      self.assertEqual(len(items), len(df))
-      self.assertEqual(predictions[0]["text"], context)
+        items = json.loads(self.JSON_TEXT_ITEMS)
+        context = items[0]["column_value"]
+        pipeline = FaissPipeline(storage_location=StorageLocation.MEMORY_CACHE)
+        for item in items:
+            (
+                text_embedding,
+                context_embedding,
+                label_embedding,
+                text_generated,
+                labels_generated,
+            ) = EmbedPipeline().encode(text=item["column_value"])
+            item["embedding"] = json.dumps(text_embedding.tolist())
+            item["context_embedding"] = json.dumps(context_embedding.tolist())
+            item["label_embedding"] = json.dumps(label_embedding.tolist())
+        df = pipeline.write("unit_test", "test_text_index_search", items)
+        print(df.head)
+        predictions = pipeline.search(
+            database="unit_test",
+            index_id="test_text_index_search",
+            context=context,
+            limit=10,
+            primary_key_values=None,
+        )
+        self.assertEqual(len(items), len(df))
+        self.assertEqual(predictions[0]["text"], context)
 
     def test_image_url_index_search(self):
-      pipeline = FaissPipeline(storage_location=StorageLocation.MEMORY_CACHE)
-      items = json.loads(self.JSON_IMAGE_ITEMS)
-      image_url = random.choice(items)["column_value"]
-      context = image_url
-      for item in items:
-        text_embedding, context_embedding, label_embedding, text_generated, labels_generated = EmbedPipeline().encode(text = item["column_value"])
-        item["embedding"] = json.dumps(text_embedding.tolist())
-        item["context_embedding"] = json.dumps(context_embedding.tolist())
-        item["label_embedding"] = json.dumps(label_embedding.tolist())
-      df = pipeline.write("unit_test","test_image_index_search", items)
-      print(df.head)
-      predictions = pipeline.search(database="unit_test", index_id="test_image_index_search", context=context, limit=10, primary_key_values=None)
-      self.assertEqual(len(items), len(df))
-      self.assertEqual(predictions[0]["text"], image_url)
+        pipeline = FaissPipeline(storage_location=StorageLocation.MEMORY_CACHE)
+        items = json.loads(self.JSON_IMAGE_ITEMS)
+        image_url = random.choice(items)["column_value"]
+        context = image_url
+        for item in items:
+            (
+                text_embedding,
+                context_embedding,
+                label_embedding,
+                text_generated,
+                labels_generated,
+            ) = EmbedPipeline().encode(text=item["column_value"])
+            item["embedding"] = json.dumps(text_embedding.tolist())
+            item["context_embedding"] = json.dumps(context_embedding.tolist())
+            item["label_embedding"] = json.dumps(label_embedding.tolist())
+        df = pipeline.write("unit_test", "test_image_index_search", items)
+        print(df.head)
+        predictions = pipeline.search(
+            database="unit_test",
+            index_id="test_image_index_search",
+            context=context,
+            limit=10,
+            primary_key_values=None,
+        )
+        self.assertEqual(len(items), len(df))
+        self.assertEqual(predictions[0]["text"], image_url)
 
     def test_image_text_index_search(self):
-      pipeline = FaissPipeline(storage_location=StorageLocation.MEMORY_CACHE)
-      items = json.loads(self.JSON_IMAGE_ITEMS)
-      image_url = random.choice(items)["column_value"]
-      texts, labels = ImageToTextPipeline().generate(image_url)
-      context = ", ".join(texts)
-      for item in items:
-        text_embedding, context_embedding, label_embedding, text_generated, labels_generated = EmbedPipeline().encode(text = item["column_value"])
-        item["embedding"] = json.dumps(text_embedding.tolist())
-        item["context_embedding"] = json.dumps(context_embedding.tolist())
-        item["label_embedding"] = json.dumps(label_embedding.tolist())
-      df = pipeline.write("unit_test","test_image_index_search", items)
-      print(df.head)
-      predictions = pipeline.search(database="unit_test", index_id="test_image_index_search", context=context, limit=10, primary_key_values=None)
-      self.assertEqual(len(items), len(df))
-      self.assertEqual(predictions[0]["text"], image_url)
+        pipeline = FaissPipeline(storage_location=StorageLocation.MEMORY_CACHE)
+        items = json.loads(self.JSON_IMAGE_ITEMS)
+        image_url = random.choice(items)["column_value"]
+        texts, labels = ImageToTextPipeline().generate(image_url)
+        context = ", ".join(texts)
+        for item in items:
+            (
+                text_embedding,
+                context_embedding,
+                label_embedding,
+                text_generated,
+                labels_generated,
+            ) = EmbedPipeline().encode(text=item["column_value"])
+            item["embedding"] = json.dumps(text_embedding.tolist())
+            item["context_embedding"] = json.dumps(context_embedding.tolist())
+            item["label_embedding"] = json.dumps(label_embedding.tolist())
+        df = pipeline.write("unit_test", "test_image_index_search", items)
+        print(df.head)
+        predictions = pipeline.search(
+            database="unit_test",
+            index_id="test_image_index_search",
+            context=context,
+            limit=10,
+            primary_key_values=None,
+        )
+        self.assertEqual(len(items), len(df))
+        self.assertEqual(predictions[0]["text"], image_url)
 
     def test_image_labels_index_search(self):
-      pipeline = FaissPipeline(storage_location=StorageLocation.MEMORY_CACHE)
-      items = json.loads(self.JSON_IMAGE_ITEMS)
-      image_url = random.choice(items)["column_value"]
-      texts, labels = ImageToTextPipeline().generate(image_url)
-      context = ", ".join(labels)
-      for item in items:
-        text_embedding, context_embedding, label_embedding, text_generated, labels_generated = EmbedPipeline().encode(text = item["column_value"])
-        item["embedding"] = json.dumps(text_embedding.tolist())
-        item["context_embedding"] = json.dumps(context_embedding.tolist())
-        item["label_embedding"] = json.dumps(label_embedding.tolist())
-      df = pipeline.write("unit_test","test_image_index_search", items)
-      print(df.head)
-      predictions = pipeline.search(database="unit_test", index_id="test_image_index_search", context=context, limit=10, primary_key_values=None)
-      self.assertEqual(len(items), len(df))
-      self.assertEqual(predictions[0]["text"], image_url)
+        pipeline = FaissPipeline(storage_location=StorageLocation.MEMORY_CACHE)
+        items = json.loads(self.JSON_IMAGE_ITEMS)
+        image_url = random.choice(items)["column_value"]
+        texts, labels = ImageToTextPipeline().generate(image_url)
+        context = ", ".join(labels)
+        for item in items:
+            (
+                text_embedding,
+                context_embedding,
+                label_embedding,
+                text_generated,
+                labels_generated,
+            ) = EmbedPipeline().encode(text=item["column_value"])
+            item["embedding"] = json.dumps(text_embedding.tolist())
+            item["context_embedding"] = json.dumps(context_embedding.tolist())
+            item["label_embedding"] = json.dumps(label_embedding.tolist())
+        df = pipeline.write("unit_test", "test_image_index_search", items)
+        print(df.head)
+        predictions = pipeline.search(
+            database="unit_test",
+            index_id="test_image_index_search",
+            context=context,
+            limit=10,
+            primary_key_values=None,
+        )
+        self.assertEqual(len(items), len(df))
+        self.assertEqual(predictions[0]["text"], image_url)
 
     def test_index_with_no_image_first_and_added_image_url_index_search(self):
-      pipeline = FaissPipeline(storage_location=StorageLocation.MEMORY_CACHE)
+        pipeline = FaissPipeline(storage_location=StorageLocation.MEMORY_CACHE)
 
-      ##No Image
-      items = json.loads(self.JSON_TEXT_ITEMS)
-      image_url = random.choice(items)["column_value"]
-      context = image_url
-      size = len(items)
-      for item in items:
-        text_embedding, context_embedding, label_embedding, text_generated, labels_generated = EmbedPipeline().encode(text = item["column_value"])
-        item["embedding"] = json.dumps(text_embedding.tolist())
-        item["context_embedding"] = json.dumps(context_embedding.tolist())
-        item["label_embedding"] = json.dumps(label_embedding.tolist())
-      df = pipeline.write("unit_test","test_image_index_search", items)
-      print(df.head)
+        ##No Image
+        items = json.loads(self.JSON_TEXT_ITEMS)
+        image_url = random.choice(items)["column_value"]
+        context = image_url
+        size = len(items)
+        for item in items:
+            (
+                text_embedding,
+                context_embedding,
+                label_embedding,
+                text_generated,
+                labels_generated,
+            ) = EmbedPipeline().encode(text=item["column_value"])
+            item["embedding"] = json.dumps(text_embedding.tolist())
+            item["context_embedding"] = json.dumps(context_embedding.tolist())
+            item["label_embedding"] = json.dumps(label_embedding.tolist())
+        df = pipeline.write("unit_test", "test_image_index_search", items)
+        print(df.head)
 
-      ##HasImages
-      items = json.loads(self.JSON_IMAGE_ITEMS)
-      image_url = random.choice(items)["column_value"]
-      context = image_url
-      size = size + len(items)
-      for item in items:
-        text_embedding, context_embedding, label_embedding, text_generated, labels_generated = EmbedPipeline().encode(text = item["column_value"])
-        item["embedding"] = json.dumps(text_embedding.tolist())
-        item["context_embedding"] = json.dumps(context_embedding.tolist())
-        item["label_embedding"] = json.dumps(label_embedding.tolist())
-      df = pipeline.write("unit_test","test_image_index_search", items)
-      print(df.head)
+        ##HasImages
+        items = json.loads(self.JSON_IMAGE_ITEMS)
+        image_url = random.choice(items)["column_value"]
+        context = image_url
+        size = size + len(items)
+        for item in items:
+            (
+                text_embedding,
+                context_embedding,
+                label_embedding,
+                text_generated,
+                labels_generated,
+            ) = EmbedPipeline().encode(text=item["column_value"])
+            item["embedding"] = json.dumps(text_embedding.tolist())
+            item["context_embedding"] = json.dumps(context_embedding.tolist())
+            item["label_embedding"] = json.dumps(label_embedding.tolist())
+        df = pipeline.write("unit_test", "test_image_index_search", items)
+        print(df.head)
 
-      ##Search
-      predictions = pipeline.search(database="unit_test", index_id="test_image_index_search", context=context, limit=10, primary_key_values=None)
-      self.assertEqual(size, len(df))
-      self.assertEqual(predictions[0]["text"], image_url)
+        ##Search
+        predictions = pipeline.search(
+            database="unit_test",
+            index_id="test_image_index_search",
+            context=context,
+            limit=10,
+            primary_key_values=None,
+        )
+        self.assertEqual(size, len(df))
+        self.assertEqual(predictions[0]["text"], image_url)
 
-if __name__ == '__main__':
+
+if __name__ == "__main__":
     unittest.main()

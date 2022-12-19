@@ -346,12 +346,9 @@ _main() {
 	# ignore failure since there are cases where we can't chmod (and PostgreSQL might fail later anyhow - it's picky about permissions of this directory)
 	chmod -R 777 "$MLDATA" || :
 	chmod -R 777 "$LOGDATA" || :
-	nohup python3 /usr/local/bin/superinsight/proxy/main.py >> "$LOGDATA"/proxy.out 2>&1 &
-	nohup python3 /usr/local/bin/superinsight/server/main.py  >> "$LOGDATA"/server-index.out 2>&1 &
-	#nohup python3 /usr/local/bin/superinsight/search/main.py  >> "$LOGDATA"/search-worker.out 2>&1 &
-	nohup gunicorn -k uvicorn.workers.UvicornWorker app:app --chdir /usr/local/bin/superinsight/server -t 0 -w 1 --bind localhost:8081>> "$LOGDATA"/server.out 2>&1 &
-	#nohup gunicorn -k uvicorn.workers.UvicornWorker app:app --chdir /usr/local/bin/superinsight/search -t 0 -w 1 --bind localhost:8082>> "$LOGDATA"/search.out 2>&1 &
-	#nohup gunicorn -k uvicorn.workers.UvicornWorker app:app --chdir /usr/local/bin/superinsight/predict/transformers -t 0 -w 1 --bind localhost:8084>> "$LOGDATA"/predict-transformers.out 2>&1 &
+	nohup python3 /usr/local/bin/superinsight/proxy/main.py &
+	nohup python3 /usr/local/bin/superinsight/server/main.py &
+	nohup gunicorn -k uvicorn.workers.UvicornWorker app:app --chdir /usr/local/bin/superinsight/server -t 0 -w 1 --bind localhost:8081 &
 	echo 'Superinsight is now starting up.....'
 	echo '################################################################################################################################################'
 	exec "$@"
