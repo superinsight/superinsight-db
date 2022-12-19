@@ -10,7 +10,7 @@ class Environment:
     postgres_password = os.getenv("SUPERINSIGHT_PASSWORD", "password")
     postgres_host = os.getenv("POSTGRES_HOST", "localhost")
     postgres_port = os.getenv("PGPORT", "8432")
-    table_logs_read_size = int(os.getenv("ENV_TABLE_LOGS_READ_SIZE", "1000"))
+    table_logs_read_size = int(os.getenv("ENV_TABLE_LOGS_READ_SIZE", "10"))
     provider_inference_default = os.getenv(
         "ENV_PROVIDER_INFERENCE_DEFAULT", "SUPERINSIGHT"
     )
