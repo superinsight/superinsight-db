@@ -1,7 +1,6 @@
 from sentence_transformers import SentenceTransformer
 from environment import Environment
 import urllib.request
-import validators
 import shutil
 import os
 import torch
@@ -11,6 +10,8 @@ from torchvision.models import resnet152, ResNet152_Weights
 from ml.pipeline.imageToText import ImageToTextPipeline
 import numpy as np
 from common.logger import CommonLogger
+from common.helper import CommonHelper
+from common.source_location import SourceLocation
 
 
 class EmbedPipeline:
@@ -29,11 +30,13 @@ class EmbedPipeline:
         return self.vision_model
 
     def hasContextEmbedding(self, text):
-        return validators.url(text)
+        source_location = CommonHelper().get_source_location(text)
+        return source_location is not None
 
     def encode(self, text):
         self.logger.info("EmbedPipeline.encode:", text)
-        if validators.url(text):
+        source_location = CommonHelper().get_source_location(text)
+        if source_location is not None:
             (texts, labels) = ImageToTextPipeline().generate(text)
             text_generated = ""
             labels_generated = ""
@@ -57,8 +60,9 @@ class EmbedPipeline:
             embedding = self.nlp_model.encode(text)
             return (embedding, np.zeros(self.context_embedding_dim), embedding, "", "")
 
-    def __encodeExternalImage(self, text):
-        try:
+    def __downloadImage(self, text):
+        source_location = CommonHelper().get_source_location(text)
+        if source_location == SourceLocation.URL:
             with urllib.request.urlopen(text) as response:
                 info = response.info()
                 if info.get_content_maintype() == "image":
@@ -71,7 +75,15 @@ class EmbedPipeline:
                     )
                     with open(image_path, "wb") as localFile:
                         localFile.write(response.read())
-                    return self.__getImageEmbeddings(image_dir)
+            self.logger.info("EmbedPipeline.__downloadImage", text, image_dir)
+            return image_dir
+        return None
+
+    def __encodeExternalImage(self, text):
+        try:
+            image_dir = self.__downloadImage(text)
+            if image_dir is not None:
+                return self.__getImageEmbeddings(image_dir)
             return np.zeros(self.context_embedding_dim)
         except Exception as e:
             self.logger.error(e)
