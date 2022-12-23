@@ -345,7 +345,6 @@ _main() {
 	echo 'Starting Superinsight Machine Learning Layers.....'
 	# ignore failure since there are cases where we can't chmod (and PostgreSQL might fail later anyhow - it's picky about permissions of this directory)
 	chmod -R 777 "$MLDATA" || :
-	chmod -R 777 "$LOGDATA" || :
 	nohup python3 /usr/local/bin/superinsight/proxy/main.py &
 	nohup python3 /usr/local/bin/superinsight/server/main.py &
 	nohup python3 /usr/local/bin/superinsight/search/main.py &
