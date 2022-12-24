@@ -1,12 +1,10 @@
 import logging
 from storage.model import StorageModel
 from storage.model_types import ModelTypes
-import validators
+from common.helper import CommonHelper
+from common.source_location import SourceLocation
 import torch
 from PIL import Image
-import requests
-import io
-import os, shutil, hashlib
 from transformers import pipeline
 from common.logger import CommonLogger
 
@@ -56,23 +54,16 @@ class ImageClassificationPipeline:
         )
 
     def exec(self, inputs):
-        if validators.url(inputs):
-            image_path = self.__localizeFile(url=inputs)
-            with Image.open(image_path) as image:
-                return self.pipeline(image)
-        else:
+        common_helper = CommonHelper()
+        source_location = common_helper.get_source_location(inputs)
+        image_path = None
+        if source_location == SourceLocation.URL:
+            image_path = common_helper.localize_file_from_url(target=inputs)
+        if source_location == SourceLocation.FILE_SYSTEM:
+            image_path = common_helper.localize_file_from_file_system(target=inputs)
+        if source_location == SourceLocation.S3:
+            image_path = common_helper.localize_file_from_s3(target=inputs)
+        if image_path is None:
             return None
-
-    def __localizeFile(self, url):
-        response = requests.get(url, stream=True)
-        if response.status_code == 200:
-            image_dir = "/tmp/{}".format(hashlib.md5(url.encode()).hexdigest())
-            if os.path.isdir(image_dir) == True:
-                shutil.rmtree(image_dir)
-            os.makedirs(image_dir)
-            image_path = "{}/image.png".format(image_dir)
-            image = Image.open(io.BytesIO(response.content))
-            image.save(image_path)
-            return image_path
-        else:
-            return None
+        with Image.open(image_path) as image:
+            return self.pipeline(image)
