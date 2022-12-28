@@ -16,6 +16,7 @@ from pipeline.image_classification import ImageClassificationPipeline
 from pipeline.question_answering import QuestionAnsweringPipeline
 from pipeline.summarization import SummarizationPipeline
 from pipeline.text_generation import TextGenerationPipeline
+from pipeline.speech_recognition import SpeechRecognitionPipeline
 from pipeline.translation import TranslationPipeline
 from pipeline.zero_shot_classification import ZeroShotClassificationPipeline
 from pipeline.zero_shot_image_classification import ZeroShotImageClassificationPipeline
@@ -200,7 +201,11 @@ async def speech_recognition(req: SpeechRecongitionRequest):
     * inputs (url or location of audio file)
     """
     try:
-        return {"status": "error", "message": "Not Implemented Yet"}
+        pipeline = SpeechRecognitionPipeline(
+            model_path=req.model, use_gpu=req.options.use_gpu
+        )
+        output = pipeline.exec(inputs=req.inputs)
+        return output
     except Exception as e:
         CommonLogger().error(e)
         return {"status": "error"}
