@@ -43,5 +43,6 @@ export AWS_SECRET_ACCESS_KEY=xxxxx
 ```
 
 ```
+export $(xargs < .env)
 uvicorn app:app --host 0.0.0.0 --port 8084 --reload
 ```

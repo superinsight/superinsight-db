@@ -54,7 +54,7 @@ class CommonHelper:
         parsed_url = urllib.parse.urlparse(target)
         bucket_name = parsed_url.netloc
         object_key = parsed_url.path.lstrip("/")
-        download_path = "{}/{}".format(temp_dir, object_key)
+        download_path = "{}/{}".format(temp_dir, object_key.split("/")[-1])
         client.download_file(bucket_name, object_key, download_path)
         return download_path
 
