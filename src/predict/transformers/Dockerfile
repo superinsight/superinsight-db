@@ -2,6 +2,7 @@ FROM python:3.8
 ADD ./ /inference
 WORKDIR /inference
 RUN apt-get -y update
+RUN apt-get install libsndfile1 -y
 ENV LC_ALL=C.UTF-8
 ENV LANG=C.UTF-8
 ENV PYTHONUNBUFFERED=1
