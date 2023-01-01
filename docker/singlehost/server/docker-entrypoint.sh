@@ -347,10 +347,7 @@ _main() {
 	echo 'Starting Superinsight Machine Learning Layers.....'
 	nohup python3 /usr/local/bin/superinsight/proxy/main.py &
 	nohup python3 /usr/local/bin/superinsight/server/main.py &
-	#nohup python3 /usr/local/bin/superinsight/search/main.py &
 	nohup gunicorn -k uvicorn.workers.UvicornWorker app:app --chdir /usr/local/bin/superinsight/server -t 0 -w 1 --bind localhost:8081 &
-	#nohup gunicorn -k uvicorn.workers.UvicornWorker app:app --chdir /usr/local/bin/superinsight/search -t 0 -w 1 --bind localhost:8082 &
-	#nohup gunicorn -k uvicorn.workers.UvicornWorker app:app --chdir /usr/local/bin/superinsight/predict/transformers -t 0 -w 1 --bind localhost:8084 &
 	echo 'Superinsight is now starting up.....'
 	echo '################################################################################################################################################'
 	exec "$@"
