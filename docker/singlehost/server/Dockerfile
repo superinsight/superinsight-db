@@ -208,10 +208,6 @@ COPY ./src/proxy /usr/local/bin/superinsight/proxy
 RUN pip install -r /usr/local/bin/superinsight/proxy/requirements.txt
 COPY ./src/server /usr/local/bin/superinsight/server
 RUN pip install -r /usr/local/bin/superinsight/server/requirements.txt
-#COPY ./src/search /usr/local/bin/superinsight/search
-#RUN pip install -r /usr/local/bin/superinsight/search/requirements.txt
-#COPY ./src/predict/transformers /usr/local/bin/superinsight/predict/transformers
-#RUN pip install -r /usr/local/bin/superinsight/predict/transformers/requirements.txt
 ########################################################################################################################################################################
 ENTRYPOINT ["docker-entrypoint.sh"]
 
