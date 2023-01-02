@@ -54,7 +54,7 @@ class SpeechRecognitionPipeline:
         if source_file is None:
             return None
         conversation = self._transcribe(source_file=source_file)
-        return {"conversation": conversation}
+        return conversation
 
     def _trim_audio(self, source, start, end, destination):
         command = [
