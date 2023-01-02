@@ -16,6 +16,8 @@ class CommonHelper:
 
     def get_source_location(self, text):
         try:
+            if text is None:
+                return None
             if self._is_url(text):
                 return SourceLocation.URL
             if re.match(r"^([^ ]*)+?$", text) and (
