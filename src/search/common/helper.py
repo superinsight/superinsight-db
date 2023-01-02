@@ -6,7 +6,7 @@ import os
 from pathlib import Path
 import boto3
 import urllib.request
-import os, shutil, tempfile, io
+import os, shutil, tempfile, io, re
 import requests
 from PIL import Image
 
@@ -18,7 +18,9 @@ class CommonHelper:
         try:
             if self._is_url(text):
                 return SourceLocation.URL
-            if os.path.exists(text) or Path(text).exists():
+            if re.match(r"^([^ ]*)+?$", text) and (
+                os.path.exists(text) or Path(text).exists()
+            ):
                 return SourceLocation.FILE_SYSTEM
             if self._is_s3_path(text):
                 return SourceLocation.S3
