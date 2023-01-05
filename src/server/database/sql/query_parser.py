@@ -119,6 +119,16 @@ class QueryParser:
                 valid = True
         return where_tokens
 
+    def getWhereValueTokens(self, token):
+        if str(token).lower() != "in":
+            return self.getSafeColumn(token.next_token)
+        pivot_token = token
+        value = ""
+        while str(pivot_token) != ")" and pivot_token.next_token is not None:
+            value = "{}{}".format(value, str(pivot_token.next_token))
+            pivot_token = pivot_token.next_token
+        return value
+
     def whereCondition(self, wheres):
         valid = False
         where_tokens = []
@@ -134,7 +144,7 @@ class QueryParser:
                 )
                 where_tokens.append(self.getSafeColumn(token.previous_token))
                 where_tokens.append(self.getSafeColumn(token))
-                where_tokens.append(self.getSafeColumn(token.next_token))
+                where_tokens.append(self.getWhereValueTokens(token))
             if (
                 token.previous_token.value.lower() == "where"
                 and self.getSafeColumn(token.value) == wheres[0]

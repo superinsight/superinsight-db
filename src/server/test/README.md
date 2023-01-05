@@ -1,7 +1,7 @@
-
 ## Load Test Data
 
 ### Create Test Table
+
 ```
 CREATE TABLE mldb.movie (
 	_id serial PRIMARY KEY,
@@ -24,4 +24,13 @@ CREATE TABLE mldb.movie (
 ```
 
 ### Upload Data to table
- - Use tools to import file resource/movie.csv
+
+- Use tools to import file resource/movie.csv
+
+### Test Commands
+
+```
+python3 -m unittest test.sqlparser
+python3 -m unittest test.select_query
+python3 -m unittest test.predict_query
+```
