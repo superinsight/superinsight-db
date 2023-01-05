@@ -2,15 +2,17 @@ import unittest
 from database.sql.query_parser import QueryParser
 from database.sql.generator import SqlGenerator
 
+
 class TestPredictQuery(unittest.TestCase):
 
     SQL_PREDICT_TEXT_CLASSIFICATION = "SELECT * FROM mldb.movie as movie JOIN model.text_classification as m on m.inputs = movie.overview JOIN model.text_classification as m on m.labels = ['drama,comedy'] WHERE mldb.movie._id = 2"
-    SQL_PREDICT_TEXT_CLASSIFICATION_INPUT_QUERY = "SELECT overview from mldb.movie WHERE mldb.movie._id = 2"
+    SQL_PREDICT_TEXT_CLASSIFICATION_INPUT_QUERY = (
+        "SELECT overview from mldb.movie WHERE mldb.movie._id = 2"
+    )
     SQL_PREDICT_QUESTION_ANSWERING = "SELECT * FROM mldb.movie as movie JOIN model.question_answering m on m.inputs = movie.overview JOIN model.question_answering as m on m.question = ['Who is the main character of the movie'] WHERE movie._id = 8;"
     SQL_PREDICT_TEXT_GENERATION = "SELECT movie._id, movie.title, predictions.* FROM mldb.movie as movie JOIN model.text_generation m on m.inputs = movie.overview JOIN model.text_generation as m on m.stop_word = ['bull'] JOIN model.text_generation m on m.prompt = [' What type of audience will like movie? This movie is best for people who like'] WHERE mldb.movie._id = 12"
 
-
-    '''
+    """
     def test_predict_type(self):
         parser = QueryParser(self.SQL_PREDICT_TEXT_CLASSIFICATION)
         self.assertEqual(parser.getType(), "PREDICT")
@@ -79,17 +81,58 @@ class TestPredictQuery(unittest.TestCase):
         self.assertEqual(order_by, None)
 
         
-    '''    
+    """
+
     def test_subquery_count(self):
-        SQL_SUBQUERY= 'SELECT COUNT(1) AS "__record_count", "overview" from (SELECT * FROM mldb.movie JOIN model.summarization on model.summarization.inputs = mldb.movie.overview WHERE mldb.movie._id = 12) AS t GROUP BY "overview"'
+        SQL_SUBQUERY = 'SELECT COUNT(1) AS "__record_count", "overview" from (SELECT * FROM mldb.movie JOIN model.summarization on model.summarization.inputs = mldb.movie.overview WHERE mldb.movie._id = 12) AS t GROUP BY "overview"'
         parser = QueryParser(SQL_SUBQUERY)
-        input_query, model_name, input_schema, input_table, input_column, limit, order_by = parser.getPredictParams()
-        print(input_query, model_name, input_schema, input_table, input_column, limit, order_by)
-        self.assertEqual(input_query, "SELECT overview from mldb.movie WHERE mldb.movie._id = 12")
+        (
+            input_query,
+            model_name,
+            input_schema,
+            input_table,
+            input_column,
+            limit,
+            order_by,
+        ) = parser.getPredictParams()
+        print(
+            input_query,
+            model_name,
+            input_schema,
+            input_table,
+            input_column,
+            limit,
+            order_by,
+        )
+        self.assertEqual(
+            input_query, "SELECT overview from mldb.movie WHERE mldb.movie._id = 12"
+        )
         self.assertEqual(model_name, "summarization")
         self.assertEqual(input_schema, "mldb")
         self.assertEqual(input_table, "movie")
         self.assertEqual(input_column, "overview")
-        
-if __name__ == '__main__':
+
+    def test_in_clause(self):
+        SQL_SEARCH_IN_CLAUSE = "SELECT mldb.movie._id, mldb.movie.title, mldb.movie.overview, predictions.score FROM mldb.movie JOIN model.semantic_search ON model.semantic_search.inputs = mldb.movie.overview WHERE mldb.movie.id in (1,2) AND model.semantic_search.similar = 'gangster' ORDER BY predictions.score DESC"
+        parser = QueryParser(SQL_SEARCH_IN_CLAUSE)
+        (
+            input_query,
+            model_name,
+            input_schema,
+            input_table,
+            input_column,
+            limit,
+            order_by,
+        ) = parser.getPredictParams()
+        self.assertEqual(
+            input_query,
+            "SELECT overview from mldb.movie WHERE mldb.movie.id in (1,2) AND model.semantic_search.similar = 'gangster'",
+        )
+        self.assertEqual(model_name, "semantic_search")
+        self.assertEqual(input_schema, "mldb")
+        self.assertEqual(input_table, "movie")
+        self.assertEqual(input_column, "overview")
+
+
+if __name__ == "__main__":
     unittest.main()
