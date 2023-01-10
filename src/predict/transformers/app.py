@@ -13,6 +13,7 @@ from fastapi.openapi.docs import (
 from fastapi.staticfiles import StaticFiles
 from pipeline.image_to_text import ImageToTextPipeline
 from pipeline.image_classification import ImageClassificationPipeline
+from pipeline.pdf_text import PdfToTextPipeline
 from pipeline.question_answering import QuestionAnsweringPipeline
 from pipeline.summarization import SummarizationPipeline
 from pipeline.text_generation import TextGenerationPipeline
@@ -73,6 +74,10 @@ class ImageToTextRequest(BaseModel):
     inputs: str
     model: str = "nlpconnect/vit-gpt2-image-captioning"
     options: InferenceOptions
+
+
+class PdfToTextRequest(BaseModel):
+    inputs: str
 
 
 class QuestionAnsweringInput(BaseModel):
@@ -166,6 +171,20 @@ async def image_to_text(req: ImageToTextRequest):
         pipeline = ImageToTextPipeline(
             model_path=req.model, use_gpu=req.options.use_gpu
         )
+        output = pipeline.exec(inputs=req.inputs)
+        return output
+    except Exception as e:
+        CommonLogger().error(e)
+        return {"status": "error"}
+
+
+@app.post("/pdf-to-text")
+async def pdf_to_text(req: PdfToTextRequest):
+    """
+    * inputs (pdf url to read text)
+    """
+    try:
+        pipeline = PdfToTextPipeline()
         output = pipeline.exec(inputs=req.inputs)
         return output
     except Exception as e:
