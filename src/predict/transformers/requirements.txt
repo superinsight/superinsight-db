@@ -11,3 +11,5 @@ Pillow==9.3.0
 git+https://github.com/openai/whisper.git
 ffmpeg-python
 pyannote.audio
+PyPDF2==3.0.1
+ocrmypdf==14.0.2
