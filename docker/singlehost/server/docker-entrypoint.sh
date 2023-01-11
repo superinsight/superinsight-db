@@ -37,8 +37,10 @@ docker_create_db_directories() {
 	local user; user="$(id -u)"
 
 	mkdir -p "$PGDATA"
+	mkdir -p "$MLDATA"
 	# ignore failure since there are cases where we can't chmod (and PostgreSQL might fail later anyhow - it's picky about permissions of this directory)
 	chmod 700 "$PGDATA" || :
+	chmod 777 "$MLDATA" || :
 
 	# ignore failure since it will be fine when using the image provided directory; see also https://github.com/docker-library/postgres/pull/289
 	mkdir -p /var/run/postgresql || :
@@ -343,9 +345,6 @@ _main() {
 	fi
 	################################################################################################################################################
 	echo 'Starting Superinsight Machine Learning Layers.....'
-	# ignore failure since there are cases where we can't chmod (and PostgreSQL might fail later anyhow - it's picky about permissions of this directory)
-	chmod -R 777 "$MLDATA" || :
-	chmod -R 777 "$LOGDATA" || :
 	nohup python3 /usr/local/bin/superinsight/proxy/main.py &
 	nohup python3 /usr/local/bin/superinsight/server/main.py &
 	nohup gunicorn -k uvicorn.workers.UvicornWorker app:app --chdir /usr/local/bin/superinsight/server -t 0 -w 1 --bind localhost:8081 &

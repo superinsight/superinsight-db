@@ -39,6 +39,8 @@ class DatabaseQueue:
                 database = None
                 index_id = None
                 for item in items:
+                    if item is None or item.get("column_value") is None:
+                        continue
                     (
                         text_embedding,
                         context_embedding,

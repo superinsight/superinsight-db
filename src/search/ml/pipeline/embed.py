@@ -1,16 +1,18 @@
 from sentence_transformers import SentenceTransformer
 from environment import Environment
-import urllib.request
-import validators
-import shutil
 import os
 import torch
-import hashlib
 from torchvision import datasets, transforms
 from torchvision.models import resnet152, ResNet152_Weights
 from ml.pipeline.imageToText import ImageToTextPipeline
 import numpy as np
 from common.logger import CommonLogger
+from common.helper import CommonHelper
+from common.source_location import SourceLocation
+import torch
+import torchvision.models as models
+from PIL import Image
+import urllib, hashlib, shutil
 
 
 class EmbedPipeline:
@@ -29,11 +31,13 @@ class EmbedPipeline:
         return self.vision_model
 
     def hasContextEmbedding(self, text):
-        return validators.url(text)
+        source_location = CommonHelper().get_source_location(text)
+        return source_location is not None
 
     def encode(self, text):
         self.logger.info("EmbedPipeline.encode:", text)
-        if validators.url(text):
+        source_location = CommonHelper().get_source_location(text)
+        if source_location is not None:
             (texts, labels) = ImageToTextPipeline().generate(text)
             text_generated = ""
             labels_generated = ""
@@ -57,22 +61,28 @@ class EmbedPipeline:
             embedding = self.nlp_model.encode(text)
             return (embedding, np.zeros(self.context_embedding_dim), embedding, "", "")
 
+    def _downloadImage(self, text):
+        common_helper = CommonHelper()
+        source_location = common_helper.get_source_location(text)
+        image_path = None
+        if source_location == SourceLocation.URL:
+            image_path = common_helper.localize_file_from_url(target=text)
+        if source_location == SourceLocation.FILE_SYSTEM:
+            image_path = common_helper.localize_file_from_file_system(target=text)
+        if source_location == SourceLocation.S3:
+            image_path = common_helper.localize_file_from_s3(target=text)
+        if image_path is None:
+            return None
+        return image_path
+
     def __encodeExternalImage(self, text):
         try:
-            with urllib.request.urlopen(text) as response:
-                info = response.info()
-                if info.get_content_maintype() == "image":
-                    image_dir = "/tmp/{}".format(hashlib.md5(text.encode()).hexdigest())
-                    if os.path.isdir(image_dir) == True:
-                        shutil.rmtree(image_dir)
-                    os.makedirs(image_dir + "/0/")
-                    image_path = (
-                        image_dir + "/0/0." + info.get_content_subtype().lower()
-                    )
-                    with open(image_path, "wb") as localFile:
-                        localFile.write(response.read())
-                    return self.__getImageEmbeddings(image_dir)
-            return np.zeros(self.context_embedding_dim)
+            downloaded_path = self._downloadImage(text)
+            downloaded_directory = os.path.dirname(downloaded_path)
+            index_directory = downloaded_directory + "/0/"
+            os.makedirs(index_directory)
+            shutil.copy(downloaded_path, index_directory)
+            return self.__getImageEmbeddings(downloaded_directory)
         except Exception as e:
             self.logger.error(e)
             return np.zeros(self.context_embedding_dim)

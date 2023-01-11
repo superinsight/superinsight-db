@@ -39,5 +39,7 @@ class Environment:
     image_to_text_model = os.getenv(
         "ENV_IMAGE_TO_TEXT_MODEL", "nlpconnect/vit-gpt2-image-captioning"
     )
+    s3_access_key = str(os.getenv("AWS_ACCESS_KEY_ID", None))
+    s3_secret_key = str(os.getenv("AWS_SECRET_ACCESS_KEY", None))
     index_image_to_caption = os.getenv("ENV_IMAGE_TO_CAPTION", "False") == "True"
     index_image_to_label = os.getenv("ENV_IMAGE_TO_LABEL", "False") == "True"

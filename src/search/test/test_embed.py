@@ -28,6 +28,20 @@ class TestEmbedPipeline(unittest.TestCase):
         self.assertEqual(len(label_embedding.tolist()), 512)
         self.assertEqual(len(context_embedding.tolist()), 1000)
 
+    def test_normal_image_local(self):
+        (
+            text_embedding,
+            context_embedding,
+            label_embedding,
+            text_generated,
+            label_generated,
+        ) = EmbedPipeline().encode(
+            "/Users/nelsonchu/Development/superinsight/superinsight-db/src/search/test/resource/test.png"
+        )
+        self.assertEqual(len(text_embedding.tolist()), 512)
+        self.assertEqual(len(label_embedding.tolist()), 512)
+        self.assertEqual(len(context_embedding.tolist()), 1000)
+
     def test_broken_image(self):
         (
             text_embedding,
